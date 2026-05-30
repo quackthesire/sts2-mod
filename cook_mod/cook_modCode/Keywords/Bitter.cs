@@ -1,0 +1,10 @@
+using BaseLib.Abstracts;
+using MegaCrit.Sts2.Core.Entities.Powers;
+
+namespace cook_mod.cook_modCode.Keywords;
+public sealed class Bitter : CustomPowerModel
+{
+    public override PowerType Type => PowerType.Buff;
+
+    public override PowerStackType StackType => PowerStackType.Counter;
+}

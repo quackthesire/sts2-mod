@@ -1,0 +1,8 @@
+{
+  "COOK_MOD-AROMATICS.description": "At the start of combat, gain [blue]3[/blue] random [gold]Generic Flavors[/gold] and add a [gold]Cook[/gold] into your [gold]Hand[/gold]. [gold]The Cook[/gold] has a maximum [gold]Hand[/gold] size of [blue]12[/blue].",
+  "COOK_MOD-AROMATICS.flavor": "[red]Details for this relic will be revealed in the future...[/red]",
+  "COOK_MOD-AROMATICS.title": "Aromatics",
+  "COOK_MOD-FLAVOR_BASE.description": "At the start of combat, gain [blue]1[/blue] of each [gold]Flavor[/gold] and an additional [blue]2[/blue] random [gold]Flavors[/gold], and add a [gold]Cook[/gold] into your [gold]Hand[/gold]. [gold]The Cook[/gold] has a maximum [gold]Hand[/gold] size of [blue]12[/blue].",
+  "COOK_MOD-FLAVOR_BASE.flavor": "[red]Details for this relic will be revealed in the future...[/red]",
+  "COOK_MOD-FLAVOR_BASE.title": "Flavor Base"
+}

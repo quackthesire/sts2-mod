@@ -1,0 +1,4 @@
+{
+  "ENERGY_COUNT.description": "Your current Energy ({energyPrefix:energyIcons(1)}) and Flavors. Flavors are ordered from left to right as follows: [gold]Sweet[/gold], [gold]Sour[/gold], [gold]Salty[/gold], [gold]Bitter[/gold], [gold]Spicy[/gold]. Cards require {energyPrefix:energyIcons(1)} to play, indicated in the top left corner. Foods require Flavors to be created, indicated on the card.",
+  "ENERGY_COUNT.title": "Energy and Flavors"
+}

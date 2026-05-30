@@ -1,0 +1,16 @@
+{
+  "COOK_MOD-THE_COOK.aromaPrinciple": "Lore",
+  "COOK_MOD-THE_COOK.banter.alive.endTurnPing": "Co-op hurry up end turn ping message",
+  "COOK_MOD-THE_COOK.banter.dead.endTurnPing": "...",
+  "COOK_MOD-THE_COOK.cardsModifierDescription": "__ cards will now appear in rewards and shops.",
+  "COOK_MOD-THE_COOK.cardsModifierTitle": "__ Cards",
+  "COOK_MOD-THE_COOK.description": "Character Selection\nScreen Description",
+  "COOK_MOD-THE_COOK.eventDeathPrevention": "Co-op survival line",
+  "COOK_MOD-THE_COOK.goldMonologue": "Line spoken when obtaining a large amount of gold",
+  "COOK_MOD-THE_COOK.possessiveAdjective": "his/her/its",
+  "COOK_MOD-THE_COOK.pronounObject": "him/her/it",
+  "COOK_MOD-THE_COOK.pronounPossessive": "his/hers/its",
+  "COOK_MOD-THE_COOK.pronounSubject": "he/she/it",
+  "COOK_MOD-THE_COOK.title": "The Cook",
+  "COOK_MOD-THE_COOK.titleObject": "The Cook"
+}

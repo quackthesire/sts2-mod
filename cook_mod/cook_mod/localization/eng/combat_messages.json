@@ -1,0 +1,10 @@
+{
+  "NOT_ENOUGH_FLAVORS": "I don't have\nenough [red]Flavors[/red].",
+  "PREPARE-DISCARD-FORCED": "Choose {Amount:plural:a card|[blue]{Amount}[/blue] cards} to [gold]Discard[/gold].",
+  "PREPARE-DISCARD-FREE": "Choose up to {Amount:plural:a card|[blue]{Amount}[/blue] cards} to [gold]Discard[/gold].",
+  "PREPARE-EXHAUST-FORCED": "Choose {Amount:plural:a card|[blue]{Amount}[/blue] cards} to [gold]Exhaust[/gold].",
+  "PREPARE-EXHAUST-FREE": "Choose up to {Amount:plural:a card|[blue]{Amount}[/blue] cards} to [gold]Exhaust[/gold].",
+  "PREPARE-HAND-FORCED": "Choose {Amount:plural:a card|[blue]{Amount}[/blue] cards} to put into your [gold]Hand[/gold].",
+  "PREPARE-HAND-FREE": "Choose up to {Amount:plural:a card|[blue]{Amount}[/blue] cards} to put into your [gold]Hand[/gold].",
+  "PREPARE-LOOK": "View {Amount:plural:the top card|the top [blue]{Amount}[/blue] cards} of your [gold]Draw Pile[/gold]."
+}

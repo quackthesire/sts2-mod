@@ -27,13 +27,15 @@ public class MasterChef() : CustomCardModel(1, CardType.Power,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MasterChefPower>()];
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate];
+    
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<MasterChefPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, this);
+        await PowerCmd.Apply<MasterChefPower>(choiceContext, this.Owner.Creature, 1m, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        this.AddKeyword(CardKeyword.Innate);
+        this.EnergyCost.UpgradeBy(-1);
     }
 }

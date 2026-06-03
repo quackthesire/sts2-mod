@@ -25,7 +25,7 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Raspberry() : FoodCardModel(0, CardType.Skill,
+public class Raspberry() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.AnyEnemy, sweet: 3, sour: 1, bitter: 1)
 {
     
@@ -36,11 +36,11 @@ public class Raspberry() : FoodCardModel(0, CardType.Skill,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         
-        await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, base.DynamicVars["VulnerablePower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, this.DynamicVars["VulnerablePower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["VulnerablePower"].UpgradeValueBy(1m);
+        this.DynamicVars["VulnerablePower"].UpgradeValueBy(1m);
     }
 }

@@ -37,7 +37,7 @@ public class Aromatics : CustomRelicModel
         {
             List<IHoverTip> items = new List<IHoverTip>();
             items.Add(HoverTipFactory.FromPower<GenericFlavor>());
-            items.AddRange(HoverTipFactory.FromCardWithCardHoverTips<Cook>());
+            //items.AddRange(HoverTipFactory.FromCardWithCardHoverTips<Cook>());
             return (IEnumerable<IHoverTip>) items;
         }
     }
@@ -47,13 +47,13 @@ public class Aromatics : CustomRelicModel
         PlayerChoiceContext choiceContext,
         ICombatState combatState)
     {
-        Aromatics aromatics = this;
+        /*Aromatics aromatics = this;
         if (player != aromatics.Owner || aromatics.Owner.PlayerCombatState.TurnNumber != 1)
             return;
         List<CardModel> cards = new List<CardModel>();
         for (int index = 0; index < aromatics.DynamicVars.Cards.IntValue; ++index)
             cards.Add((CardModel) aromatics.Owner.Creature.CombatState.CreateCard<Cook>(aromatics.Owner));
-        IReadOnlyList<CardPileAddResult> combat = await CardPileCmd.AddGeneratedCardsToCombat((IEnumerable<CardModel>) cards, PileType.Hand, aromatics.Owner);
+        IReadOnlyList<CardPileAddResult> combat = await CardPileCmd.AddGeneratedCardsToCombat((IEnumerable<CardModel>) cards, PileType.Hand, aromatics.Owner);*/
         await FlavorCmd.AddRandomGenericFlavor(choiceContext, player, null, 3);
     }
     

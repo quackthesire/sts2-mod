@@ -25,13 +25,13 @@ public class GrowingGashPower : CustomPowerModel
     
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (participants.Contains(base.Owner))
+        if (participants.Contains(this.Owner))
         {
             Flash();
-            Creature creature = base.Owner.Player.RunState.Rng.CombatTargets.NextItem(base.CombatState.HittableEnemies);
+            Creature creature = this.Owner.Player.RunState.Rng.CombatTargets.NextItem(this.CombatState.HittableEnemies);
             if (creature != null)
             {
-                await PowerCmd.Apply<BleedPower>(new ThrowingPlayerChoiceContext(), creature, base.Amount, base.Owner, null);
+                await PowerCmd.Apply<BleedPower>(new ThrowingPlayerChoiceContext(), creature, this.Amount, this.Owner, null);
             }
         }
     }

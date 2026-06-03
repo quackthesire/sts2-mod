@@ -26,18 +26,18 @@ public class Sharpen() : CustomCardModel(1, CardType.Skill,
 {
     public override bool GainsBlock => true;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Knife>(base.IsUpgraded)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Knife>(this.IsUpgraded)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move), new CardsVar(1), new DynamicVar("Knives", 1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, ValueProp.Move), new CardsVar(1), new DynamicVar("Knives", 1m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        await CreateCard.GiveCards<Knife>(Owner, base.DynamicVars["Knives"].IntValue, PileType.Hand, upgraded: IsUpgraded);
+        await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
+        await CreateCard.GiveCards<Knife>(Owner, this.DynamicVars["Knives"].IntValue, PileType.Hand, upgraded: IsUpgraded);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Block.UpgradeValueBy(1m);
+        this.DynamicVars.Block.UpgradeValueBy(1m);
     }
 }

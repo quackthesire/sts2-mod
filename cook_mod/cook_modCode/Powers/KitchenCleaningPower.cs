@@ -29,8 +29,8 @@ public class KitchenCleaningPower : CustomPowerModel, IOnFlavor
     
     public async Task OnFlavor(PlayerChoiceContext ctx, Player player, Flavors original, Flavors modified)
     {
-        if (player != base.Owner.Player || (original.sweet == modified.sweet && original.sour == modified.sour && original.salty == modified.salty && original.bitter == modified.bitter && original.spicy == modified.spicy))
+        if (player != this.Owner.Player || (original.sweet == modified.sweet && original.sour == modified.sour && original.salty == modified.salty && original.bitter == modified.bitter && original.spicy == modified.spicy))
             return;
-        await PrepareCmd.Discard(ctx, player, base.Amount, 0, base.Amount, null);
+        await PrepareCmd.Discard(ctx, player, this.Amount, 0, this.Amount, null);
     }
 }

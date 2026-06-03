@@ -32,15 +32,15 @@ public class SourdoughBread() : FoodCardModel(0, CardType.Skill,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
+        await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Block.UpgradeValueBy(3m);
+        this.DynamicVars.Block.UpgradeValueBy(3m);
     }
 }

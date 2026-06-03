@@ -33,13 +33,13 @@ public class HoneyLob() : CustomCardModel(1, CardType.Attack,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
-        await FlavorCmd.ChangeFlavor(choiceContext, base.Owner, this, sweet: base.DynamicVars["Sweet"].IntValue);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await FlavorCmd.ChangeFlavor(choiceContext, this.Owner, this, sweet: this.DynamicVars["Sweet"].IntValue);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(1m);
-        base.DynamicVars["Sweet"].UpgradeValueBy(1m);
+        this.DynamicVars.Damage.UpgradeValueBy(1m);
+        this.DynamicVars["Sweet"].UpgradeValueBy(1m);
     }
 }

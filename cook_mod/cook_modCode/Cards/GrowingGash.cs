@@ -27,15 +27,15 @@ public class GrowingGash() : CustomCardModel(1, CardType.Power,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<GrowingGashPower>(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<GrowingGashPower>(1m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<GrowingGashPower>(choiceContext, base.Owner.Creature, base.DynamicVars["GrowingGashPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<GrowingGashPower>(choiceContext, this.Owner.Creature, this.DynamicVars["GrowingGashPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["GrowingGashPower"].UpgradeValueBy(1m);
+        this.DynamicVars["GrowingGashPower"].UpgradeValueBy(1m);
     }
 }

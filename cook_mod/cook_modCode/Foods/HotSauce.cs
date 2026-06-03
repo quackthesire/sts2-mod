@@ -25,7 +25,7 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class HotSauce() : FoodCardModel(0, CardType.Skill,
+public class HotSauce() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.AllEnemies, salty: 1, sour: 1, spicy: 2)
 {
     
@@ -35,18 +35,18 @@ public class HotSauce() : FoodCardModel(0, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
+        foreach (Creature hittableEnemy in this.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<WeakPower>(choiceContext, hittableEnemy, base.DynamicVars["WeakPower"].BaseValue,
-                base.Owner.Creature, this);
-            await PowerCmd.Apply<VulnerablePower>(choiceContext, hittableEnemy, base.DynamicVars["VulnerablePower"].BaseValue,
-                base.Owner.Creature, this);
+            await PowerCmd.Apply<WeakPower>(choiceContext, hittableEnemy, this.DynamicVars["WeakPower"].BaseValue,
+                this.Owner.Creature, this);
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, hittableEnemy, this.DynamicVars["VulnerablePower"].BaseValue,
+                this.Owner.Creature, this);
         }
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["WeakPower"].UpgradeValueBy(1m);
-        base.DynamicVars["VulnerablePower"].UpgradeValueBy(1m);
+        this.DynamicVars["WeakPower"].UpgradeValueBy(1m);
+        this.DynamicVars["VulnerablePower"].UpgradeValueBy(1m);
     }
 }

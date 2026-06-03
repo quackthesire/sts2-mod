@@ -27,8 +27,8 @@ public class NourishmentPower : CustomPowerModel
     
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Card.Owner.Creature != base.Owner || !(cardPlay.Card is FoodCardModel))
+        if (cardPlay.Card.Owner.Creature != this.Owner || !(cardPlay.Card is FoodCardModel))
             return;
-        await CreatureCmd.GainBlock(base.Owner, base.Amount, ValueProp.Unpowered, null, true);
+        await CreatureCmd.GainBlock(this.Owner, this.Amount, ValueProp.Unpowered, null, true);
     }
 }

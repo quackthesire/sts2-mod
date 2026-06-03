@@ -26,22 +26,24 @@ namespace cook_mod.cook_modCode.Foods;
 [Pool(typeof(TokenCardPool))]
 
 public class Chocolate() : FoodCardModel(1, CardType.Skill,
-    CardRarity.Token, TargetType.Self, sweet: 2, bitter: 2)
+    CardRarity.Token, TargetType.Self, sweet: 2, sour: 1, bitter: 2)
 {
     public override bool GainsBlock => true;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Bitter>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Bitter>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move), new RepeatVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move), new RepeatVar(2)];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        for (int i = 0; i < base.DynamicVars.Repeat.IntValue; i++)
-            await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
+        for (int i = 0; i < this.DynamicVars.Repeat.IntValue; i++)
+            await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Block.UpgradeValueBy(2m);
+        this.DynamicVars.Block.UpgradeValueBy(2m);
     }
 }

@@ -35,11 +35,11 @@ public class Caramel() : FoodCardModel(0, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<RetainHandPower>(choiceContext, base.Owner.Creature, base.DynamicVars["Retain"].BaseValue, base.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<RetainHandPower>(choiceContext, this.Owner.Creature, this.DynamicVars["Retain"].BaseValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["Retain"].UpgradeValueBy(1m);
+        this.DynamicVars["Retain"].UpgradeValueBy(1m);
     }
 }

@@ -21,19 +21,18 @@ public sealed class BleedPower : CustomPowerModel
 
     public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
-        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount,
-            ValueProp.Unblockable | ValueProp.Unpowered, applier, cardSource);
-        await CookHook.OnBleed(new BlockingPlayerChoiceContext(), applier.Player, base.Amount, base.Amount, cardSource);
+        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), this.Owner, this.Amount, ValueProp.Unpowered, applier, cardSource);
+        await CookHook.OnBleed(new BlockingPlayerChoiceContext(), applier.Player, this.Amount, this.Amount, cardSource);
     }
 
     public override async Task BeforePowerAmountChanged(PowerModel power, decimal amount, Creature target,
         Creature? applier,
         CardModel? cardSource)
     {
-        if (!(power is BleedPower) || target != base.Owner)
+        if (!(power is BleedPower) || target != this.Owner)
             return;
-        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount + amount,
-                    ValueProp.Unblockable | ValueProp.Unpowered, applier, cardSource);
-        await CookHook.OnBleed(new BlockingPlayerChoiceContext(), applier.Player, base.Amount + (int) amount, (int) amount, cardSource);
+        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), this.Owner, this.Amount + amount,
+                    ValueProp.Unpowered, applier, cardSource);
+        await CookHook.OnBleed(new BlockingPlayerChoiceContext(), applier.Player, this.Amount + (int) amount, (int) amount, cardSource);
     }
 }

@@ -33,13 +33,13 @@ public class DistastefulScent() : CustomCardModel(1, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-        await FlavorCmd.ChangeFlavor(choiceContext, base.Owner, this, sour: base.DynamicVars["Sour"].IntValue, bitter: base.DynamicVars["Bitter"].IntValue);
+        await CardPileCmd.Draw(choiceContext, this.DynamicVars.Cards.BaseValue, this.Owner);
+        await FlavorCmd.ChangeFlavor(choiceContext, this.Owner, this, sour: this.DynamicVars["Sour"].IntValue, bitter: this.DynamicVars["Bitter"].IntValue);
     }
     
     protected override void OnUpgrade()
     {
-        base.ExtraHoverTips.AddItem(HoverTipFactory.FromPower<Bitter>());
-        base.DynamicVars["Bitter"].UpgradeValueBy(1m);
+        this.ExtraHoverTips.AddItem(HoverTipFactory.FromPower<Bitter>());
+        this.DynamicVars["Bitter"].UpgradeValueBy(1m);
     }
 }

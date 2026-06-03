@@ -31,11 +31,11 @@ public class KitchenCleaning() : CustomCardModel(1, CardType.Power,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<KitchenCleaningPower>(choiceContext, base.Owner.Creature, base.DynamicVars["KitchenCleaningPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<KitchenCleaningPower>(choiceContext, this.Owner.Creature, this.DynamicVars["KitchenCleaningPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["KitchenCleaningPower"].UpgradeValueBy(1m);
+        this.DynamicVars["KitchenCleaningPower"].UpgradeValueBy(1m);
     }
 }

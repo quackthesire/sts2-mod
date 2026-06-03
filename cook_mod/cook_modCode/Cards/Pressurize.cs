@@ -30,20 +30,22 @@ public class Pressurize() : CustomCardModel(1, CardType.Skill,
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BleedPower>(2m), new PowerVar<VulnerablePower>(1m)];
     
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
+    
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
+        foreach (Creature hittableEnemy in this.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<VulnerablePower>(choiceContext, hittableEnemy, base.DynamicVars["VulnerablePower"].BaseValue,
-                base.Owner.Creature, this);
-            await PowerCmd.Apply<BleedPower>(choiceContext, hittableEnemy, base.DynamicVars["BleedPower"].BaseValue,
-                base.Owner.Creature, this);
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, hittableEnemy, this.DynamicVars["VulnerablePower"].BaseValue,
+                this.Owner.Creature, this);
+            await PowerCmd.Apply<BleedPower>(choiceContext, hittableEnemy, this.DynamicVars["BleedPower"].BaseValue,
+                this.Owner.Creature, this);
         }
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["VulnerablePower"].UpgradeValueBy(1m);
-        base.DynamicVars["BleedPower"].UpgradeValueBy(1m);
+        this.DynamicVars["VulnerablePower"].UpgradeValueBy(1m);
+        this.DynamicVars["BleedPower"].UpgradeValueBy(1m);
     }
 }

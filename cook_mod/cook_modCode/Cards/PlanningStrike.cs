@@ -33,18 +33,18 @@ public class PlanningStrike() : CustomCardModel(1, CardType.Attack,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new CardsVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new CardsVar(2)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
-        await PrepareCmd.Look(choiceContext, base.Owner, base.DynamicVars.Cards.IntValue, cardPlay);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await PrepareCmd.Discard(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, this.DynamicVars.Cards.IntValue, cardPlay);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(2m);
-        base.DynamicVars.Cards.UpgradeValueBy(1m);
+        this.DynamicVars.Damage.UpgradeValueBy(2m);
+        this.DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

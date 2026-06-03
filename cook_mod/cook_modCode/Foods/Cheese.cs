@@ -25,21 +25,21 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Cheese() : FoodCardModel(3, CardType.Attack,
+public class Cheese() : FoodCardModel(2, CardType.Attack,
     CardRarity.Token, TargetType.AllEnemies, sour: 1, salty: 3)
 {
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(60m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(30m, ValueProp.Move)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).TargetingAllOpponents(base.CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).TargetingAllOpponents(this.CombatState).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(15m);
+        this.DynamicVars.Damage.UpgradeValueBy(10m);
     }
 }

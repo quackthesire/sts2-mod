@@ -31,16 +31,16 @@ public class Pasta() : FoodCardModel(0, CardType.Attack,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Salty>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10m, ValueProp.Move)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(4m);
+        this.DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

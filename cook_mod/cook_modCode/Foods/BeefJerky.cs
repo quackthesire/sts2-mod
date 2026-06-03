@@ -37,7 +37,7 @@ public class BeefJerky() : FoodCardModel(0, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<DoubleDamagePower>(choiceContext, base.Owner.Creature, base.DynamicVars["DoubleDamagePower"].BaseValue, base.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<DoubleDamagePower>(choiceContext, this.Owner.Creature, this.DynamicVars["DoubleDamagePower"].BaseValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()

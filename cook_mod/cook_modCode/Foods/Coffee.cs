@@ -26,20 +26,20 @@ namespace cook_mod.cook_modCode.Foods;
 [Pool(typeof(TokenCardPool))]
 
 public class Coffee() : FoodCardModel(0, CardType.Skill,
-    CardRarity.Token, TargetType.Self, sour: 2, bitter: 3)
+    CardRarity.Token, TargetType.Self, sour: 1, bitter: 3)
 {
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Bitter>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
+        await CardPileCmd.Draw(choiceContext, this.DynamicVars.Cards.BaseValue, this.Owner);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Cards.UpgradeValueBy(1m);
+        this.DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

@@ -33,15 +33,15 @@ public class SquirtOfLemon() : CustomCardModel(1, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (Creature hittableEnemy in (IEnumerable<Creature>) base.CombatState.HittableEnemies)
+        foreach (Creature hittableEnemy in (IEnumerable<Creature>) this.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<WeakPower>(choiceContext, hittableEnemy, base.DynamicVars["WeakPower"].IntValue, base.Owner.Creature, (CardModel) this);
+            await PowerCmd.Apply<WeakPower>(choiceContext, hittableEnemy, this.DynamicVars["WeakPower"].IntValue, this.Owner.Creature, (CardModel) this);
         }
-        await FlavorCmd.ChangeFlavor(choiceContext, base.Owner, this, sour: base.DynamicVars["Sour"].IntValue);
+        await FlavorCmd.ChangeFlavor(choiceContext, this.Owner, this, sour: this.DynamicVars["Sour"].IntValue);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["Sour"].UpgradeValueBy(1m);
+        this.DynamicVars["Sour"].UpgradeValueBy(1m);
     }
 }

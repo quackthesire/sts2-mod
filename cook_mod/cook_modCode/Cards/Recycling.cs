@@ -32,7 +32,7 @@ public class Recycling() : CustomCardModel(1, CardType.Power,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<RecyclingPower>(choiceContext, base.Owner.Creature, base.DynamicVars["RecyclingPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<RecyclingPower>(choiceContext, this.Owner.Creature, this.DynamicVars["RecyclingPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()

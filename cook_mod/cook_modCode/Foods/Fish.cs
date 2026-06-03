@@ -23,9 +23,9 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace cook_mod.cook_modCode.Foods;
 
-[Pool(typeof(TokenCardPool))]
+[Pool(typeof(DeprecatedCardPool))]
 
-public class Fish() : FoodCardModel(0, CardType.Power,
+public class Fish() : FoodCardModel(1, CardType.Power,
     CardRarity.Token, TargetType.Self, salty: 2, spicy: 1)
 {
     
@@ -35,11 +35,11 @@ public class Fish() : FoodCardModel(0, CardType.Power,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<ThornsPower>(choiceContext, base.Owner.Creature, base.DynamicVars["ThornsPower"].BaseValue, base.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<ThornsPower>(choiceContext, this.Owner.Creature, this.DynamicVars["ThornsPower"].BaseValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["ThornsPower"].UpgradeValueBy(2m);
+        this.DynamicVars["ThornsPower"].UpgradeValueBy(2m);
     }
 }

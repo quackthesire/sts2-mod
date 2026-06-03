@@ -38,7 +38,7 @@ public class FlavorBase : CustomRelicModel
         {
             List<IHoverTip> items = new List<IHoverTip>();
             items.Add(HoverTipFactory.FromPower<Flavor>());
-            items.AddRange(HoverTipFactory.FromCardWithCardHoverTips<Cook>());
+            //items.AddRange(HoverTipFactory.FromCardWithCardHoverTips<Cook>());
             return (IEnumerable<IHoverTip>) items;
         }
     }
@@ -48,13 +48,13 @@ public class FlavorBase : CustomRelicModel
         PlayerChoiceContext choiceContext,
         ICombatState combatState)
     {
-        FlavorBase flavorbase = this;
-        if (player != flavorbase.Owner || flavorbase.Owner.PlayerCombatState.TurnNumber != 1)
+        /*FlavorBase flavorbase = this;
+        if (player != flavorthis.Owner || flavorthis.Owner.PlayerCombatState.TurnNumber != 1)
             return;
         List<CardModel> cards = new List<CardModel>();
-        for (int index = 0; index < flavorbase.DynamicVars.Cards.IntValue; ++index)
-            cards.Add((CardModel) flavorbase.Owner.Creature.CombatState.CreateCard<Cook>(flavorbase.Owner));
-        IReadOnlyList<CardPileAddResult> combat = await CardPileCmd.AddGeneratedCardsToCombat((IEnumerable<CardModel>) cards, PileType.Hand, flavorbase.Owner);
+        for (int index = 0; index < flavorthis.DynamicVars.Cards.IntValue; ++index)
+            cards.Add((CardModel) flavorthis.Owner.Creature.CombatState.CreateCard<Cook>(flavorthis.Owner));
+        IReadOnlyList<CardPileAddResult> combat = await CardPileCmd.AddGeneratedCardsToCombat((IEnumerable<CardModel>) cards, PileType.Hand, flavorthis.Owner);*/
         await FlavorCmd.AddRandomFlavor(choiceContext, player, null, 2);
         await FlavorCmd.ChangeFlavor(choiceContext, player, null, sweet: 1, sour: 1, salty: 1, bitter: 1, spicy: 1);
     }

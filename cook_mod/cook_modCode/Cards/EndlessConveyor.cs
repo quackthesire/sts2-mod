@@ -36,7 +36,7 @@ public class EndlessConveyor() : CustomCardModel(1, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        IEnumerable<CardModel> allCards = ModelDb.CardPool<TokenCardPool>().GetUnlockedCards(base.Owner.UnlockState, base.Owner.RunState.CardMultiplayerConstraint);
+        IEnumerable<CardModel> allCards = ModelDb.CardPool<TokenCardPool>().GetUnlockedCards(this.Owner.UnlockState, this.Owner.RunState.CardMultiplayerConstraint);
         List<CardModel> allFoods = new List<CardModel>();
         foreach (CardModel food in allCards)
         {
@@ -45,12 +45,12 @@ public class EndlessConveyor() : CustomCardModel(1, CardType.Skill,
         }
         CardModel card;
         if (this._mockSelectedCard == null)
-            card = await CardSelectCmd.FromChooseACardScreen(choiceContext, (IReadOnlyList<CardModel>) CardFactory.GetDistinctForCombat(base.Owner, allFoods, 3, base.Owner.RunState.Rng.CombatCardGeneration).ToList<CardModel>(), this.Owner, true);
+            card = await CardSelectCmd.FromChooseACardScreen(choiceContext, (IReadOnlyList<CardModel>) CardFactory.GetDistinctForCombat(this.Owner, allFoods, 3, this.Owner.RunState.Rng.CombatCardGeneration).ToList<CardModel>(), this.Owner, true);
         else
             card = this._mockSelectedCard;
         if (card == null)
             return;
-        CardPileAddResult combat = await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, base.Owner);
+        CardPileAddResult combat = await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, this.Owner);
     }
     
     protected override void OnUpgrade()

@@ -26,6 +26,14 @@ namespace cook_mod.cook_modCode.Cards;
 public class ReachNewHeights() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    protected override bool ShouldGlowGoldInternal
+    {
+        get
+        {
+            Flavors flavors = FlavorsModel.Get(this.Owner);
+            return flavors != null && flavors.sweet > 0 && flavors.sour > 0 && flavors.salty > 0 && flavors.bitter > 0 && flavors.spicy > 0;
+        }
+    }
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Flavor>()];
     
@@ -35,9 +43,9 @@ public class ReachNewHeights() : CustomCardModel(1, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        Flavors flavors = FlavorsModel.Get(base.Owner);
+        Flavors flavors = FlavorsModel.Get(this.Owner);
         if (flavors != null && flavors.sweet > 0 && flavors.sour > 0 && flavors.salty > 0 && flavors.bitter > 0 && flavors.spicy > 0)
-            await FlavorCmd.ChangeFlavor(choiceContext, base.Owner, this, sweet: base.DynamicVars["Flavors"].IntValue, sour: base.DynamicVars["Flavors"].IntValue, salty: base.DynamicVars["Flavors"].IntValue, bitter: base.DynamicVars["Flavors"].IntValue, spicy: base.DynamicVars["Flavors"].IntValue);
+            await FlavorCmd.ChangeFlavor(choiceContext, this.Owner, this, sweet: this.DynamicVars["Flavors"].IntValue, sour: this.DynamicVars["Flavors"].IntValue, salty: this.DynamicVars["Flavors"].IntValue, bitter: this.DynamicVars["Flavors"].IntValue, spicy: this.DynamicVars["Flavors"].IntValue);
     }
     
     protected override void OnUpgrade()

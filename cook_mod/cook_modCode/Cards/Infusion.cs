@@ -32,11 +32,11 @@ public class Infusion() : CustomCardModel(2, CardType.Power,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<InfusionPower>(choiceContext, base.Owner.Creature, base.DynamicVars["InfusionPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<InfusionPower>(choiceContext, this.Owner.Creature, this.DynamicVars["InfusionPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["InfusionPower"].UpgradeValueBy(1m);
+        this.DynamicVars["InfusionPower"].UpgradeValueBy(1m);
     }
 }

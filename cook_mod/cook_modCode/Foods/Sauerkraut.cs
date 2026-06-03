@@ -31,21 +31,21 @@ public class Sauerkraut() : FoodCardModel(0, CardType.Skill,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SauerkrautPower>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SauerkrautPower>(11m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SauerkrautPower>(8m)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         
-        foreach (Creature hittableEnemy in (IEnumerable<Creature>) base.CombatState.HittableEnemies)
+        foreach (Creature hittableEnemy in (IEnumerable<Creature>) this.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<SauerkrautPower>(choiceContext, hittableEnemy, base.DynamicVars["SauerkrautPower"].BaseValue, base.Owner.Creature, (CardModel) this);
+            await PowerCmd.Apply<SauerkrautPower>(choiceContext, hittableEnemy, this.DynamicVars["SauerkrautPower"].BaseValue, this.Owner.Creature, (CardModel) this);
         }
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["SauerkrautPower"].UpgradeValueBy(4m);
+        this.DynamicVars["SauerkrautPower"].UpgradeValueBy(3m);
     }
 }

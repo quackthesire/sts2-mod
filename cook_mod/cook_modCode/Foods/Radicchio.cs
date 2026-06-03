@@ -28,7 +28,7 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Radicchio() : FoodCardModel(2, CardType.Skill,
+public class Radicchio() : FoodCardModel(3, CardType.Skill,
     CardRarity.Token, TargetType.Self, bitter: 4, spicy: 2)
 {
     private bool _hasExtraTurn;
@@ -73,6 +73,6 @@ public class Radicchio() : FoodCardModel(2, CardType.Skill,
     
     protected override void OnUpgrade()
     {
-        base.EnergyCost.UpgradeBy(-1);
+        this.EnergyCost.UpgradeBy(-1);
     }
 }

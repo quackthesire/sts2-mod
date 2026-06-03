@@ -18,7 +18,7 @@ public class MasterChefPower : CustomPowerModel
     
     public override Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
-        if (card.Owner.Creature != Owner || !card.Owner.Creature.HasPower<MasterChefPower>() || !(card is FoodCardModel))
+        if (card.Owner.Creature != Owner || !card.Owner.Creature.HasPower<MasterChefPower>())
             return Task.CompletedTask;
         if (card is { IsUpgradable: true, IsUpgraded: false }) CardCmd.Upgrade(card);
         return Task.CompletedTask;

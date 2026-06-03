@@ -34,11 +34,11 @@ public class FlavorBomb() : CustomCardModel(0, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await FlavorCmd.AddRandomFlavor(choiceContext, base.Owner, this, base.DynamicVars["Flavors"].IntValue);
+        await FlavorCmd.AddRandomFlavor(choiceContext, this.Owner, this, this.DynamicVars["Flavors"].IntValue);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["Flavors"].UpgradeValueBy(2m);
+        this.DynamicVars["Flavors"].UpgradeValueBy(2m);
     }
 }

@@ -26,20 +26,20 @@ namespace cook_mod.cook_modCode.Foods;
 [Pool(typeof(TokenCardPool))]
 
 public class Cracker() : FoodCardModel(1, CardType.Power,
-    CardRarity.Token, TargetType.Self, sweet: 2, salty: 3)
+    CardRarity.Token, TargetType.Self, sweet: 2, salty: 4)
 {
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Salty>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BufferPower>(), HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Salty>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BufferPower>(1m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<BufferPower>(choiceContext, base.Owner.Creature, base.DynamicVars["BufferPower"].BaseValue, base.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<BufferPower>(choiceContext, this.Owner.Creature, this.DynamicVars["BufferPower"].BaseValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["BufferPower"].UpgradeValueBy(1m);
+        this.DynamicVars["BufferPower"].UpgradeValueBy(1m);
     }
 }

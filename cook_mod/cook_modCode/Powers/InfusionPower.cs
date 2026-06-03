@@ -27,10 +27,10 @@ public class InfusionPower : CustomPowerModel
     
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
-        if (participants.Contains(base.Owner))
+        if (participants.Contains(this.Owner))
         {
             Flash();
-            await FlavorCmd.AddRandomGenericFlavor(new BlockingPlayerChoiceContext(), base.Owner.Player, null, base.Amount);
+            await FlavorCmd.AddRandomGenericFlavor(new BlockingPlayerChoiceContext(), this.Owner.Player, null, this.Amount);
         }
     }
 }

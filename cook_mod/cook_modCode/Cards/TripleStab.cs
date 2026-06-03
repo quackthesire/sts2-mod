@@ -32,18 +32,18 @@ public class TripleStab() : CustomCardModel(2, CardType.Attack,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).WithHitCount(base.DynamicVars.Repeat.IntValue).FromCard(this)
-            .Targeting(cardPlay.Target)
-            .WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3")
-            .Execute(choiceContext);
-        for (int i = 0; i < base.DynamicVars.Repeat.IntValue; i++)
+        for (int i = 0; i < this.DynamicVars.Repeat.IntValue; i++)
         {
-            await PowerCmd.Apply<BleedPower>(choiceContext, cardPlay.Target, base.DynamicVars["BleedPower"].BaseValue, base.Owner.Creature, this);
+            await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard(this)
+                .Targeting(cardPlay.Target)
+                .WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3")
+                .Execute(choiceContext);
+            await PowerCmd.Apply<BleedPower>(choiceContext, cardPlay.Target, this.DynamicVars["BleedPower"].BaseValue, this.Owner.Creature, this);
         }
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["BleedPower"].UpgradeValueBy(1m);
+        this.DynamicVars["BleedPower"].UpgradeValueBy(1m);
     }
 }

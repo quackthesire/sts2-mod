@@ -25,7 +25,7 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Lemonade() : FoodCardModel(0, CardType.Skill,
+public class Lemonade() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, sweet: 2, sour: 3)
 {
     
@@ -35,14 +35,14 @@ public class Lemonade() : FoodCardModel(0, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (base.DynamicVars.Cards.IntValue > 0)
-            await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
-        foreach (CardModel card in PileType.Hand.GetPile(base.Owner).Cards.Where<CardModel>((Func<CardModel, bool>) (c => c.IsUpgradable)))
+        if (this.DynamicVars.Cards.IntValue > 0)
+            await CardPileCmd.Draw(choiceContext, this.DynamicVars.Cards.BaseValue, this.Owner);
+        foreach (CardModel card in PileType.Hand.GetPile(this.Owner).Cards.Where<CardModel>((Func<CardModel, bool>) (c => c.IsUpgradable)))
             CardCmd.Upgrade(card);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Cards.UpgradeValueBy(1m);
+        this.DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

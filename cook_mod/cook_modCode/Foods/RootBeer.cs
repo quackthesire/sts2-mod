@@ -26,25 +26,25 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class RootBeer() : FoodCardModel(1, CardType.Attack,
+public class RootBeer() : FoodCardModel(2, CardType.Attack,
     CardRarity.Token, TargetType.AnyEnemy, sweet: 3, bitter: 1)
 {
     public override bool GainsBlock => true;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Bitter>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FreeCardsPower>(1m), new DamageVar(5m, ValueProp.Move), new BlockVar(5m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FreeCardsPower>(1m), new DamageVar(8m, ValueProp.Move), new BlockVar(8m, ValueProp.Move)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<FreeCardsPower>(choiceContext, base.Owner.Creature, base.DynamicVars["FreeCardsPower"].IntValue, base.Owner.Creature, (CardModel) this);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
+        await PowerCmd.Apply<FreeCardsPower>(choiceContext, this.Owner.Creature, this.DynamicVars["FreeCardsPower"].IntValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["FreeCardsPower"].UpgradeValueBy(1m);
+        this.DynamicVars["FreeCardsPower"].UpgradeValueBy(1m);
     }
 }

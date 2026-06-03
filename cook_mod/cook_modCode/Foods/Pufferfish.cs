@@ -35,18 +35,18 @@ public class Pufferfish() : FoodCardModel(1, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
+        foreach (Creature hittableEnemy in this.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<PoisonPower>(choiceContext, hittableEnemy, base.DynamicVars["PoisonPower"].BaseValue,
-                base.Owner.Creature, this);
-            await PowerCmd.Apply<BleedPower>(choiceContext, hittableEnemy, base.DynamicVars["BleedPower"].BaseValue,
-                base.Owner.Creature, this);
+            await PowerCmd.Apply<PoisonPower>(choiceContext, hittableEnemy, this.DynamicVars["PoisonPower"].BaseValue,
+                this.Owner.Creature, this);
+            await PowerCmd.Apply<BleedPower>(choiceContext, hittableEnemy, this.DynamicVars["BleedPower"].BaseValue,
+                this.Owner.Creature, this);
         }
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["PoisonPower"].UpgradeValueBy(2m);
-        base.DynamicVars["BleedPower"].UpgradeValueBy(2m);
+        this.DynamicVars["PoisonPower"].UpgradeValueBy(2m);
+        this.DynamicVars["BleedPower"].UpgradeValueBy(2m);
     }
 }

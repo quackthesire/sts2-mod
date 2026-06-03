@@ -31,15 +31,17 @@ public class EnergyDrink() : FoodCardModel(0, CardType.Skill,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [this.EnergyHoverTip, HoverTipFactory.FromPower<Sweet>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PlayerCmd.GainEnergy(base.DynamicVars.Energy.BaseValue, base.Owner);
+        await PlayerCmd.GainEnergy(this.DynamicVars.Energy.BaseValue, this.Owner);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Energy.UpgradeValueBy(1m);
+        this.DynamicVars.Energy.UpgradeValueBy(1m);
     }
 }

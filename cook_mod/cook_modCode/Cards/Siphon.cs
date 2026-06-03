@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Character;
@@ -15,6 +16,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using cook_mod.cook_modCode.Powers;
+using MegaCrit.Sts2.Core.Models.Enchantments;
 
 
 namespace cook_mod.cook_modCode.Cards;
@@ -25,26 +27,40 @@ public class Siphon() : CustomCardModel(0, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [this.EnergyHoverTip];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            List<IHoverTip> tips = new List<IHoverTip>();
+            tips.AddRange(HoverTipFactory.FromEnchantment<Glam>());
+            return tips;
+        }
+    }
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1), new CardsVar(2)];
-    
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(4)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        IEnumerable<CardModel> cards = await CardSelectCmd.FromSimpleGrid(choiceContext, PileType.Draw.GetPile(base.Owner).Cards.Take(5).ToList(), base.Owner, new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 5));
-        foreach (CardModel card in cards)
+        IEnumerable<CardModel> cards = await CardSelectCmd.FromSimpleGrid(choiceContext, PileType.Draw.GetPile(this.Owner).Cards.Take(this.DynamicVars.Cards.IntValue).ToList(), this.Owner, new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, this.DynamicVars.Cards.IntValue));
+        foreach (CardModel exhaust in cards)
         {
-            await CardCmd.Exhaust(choiceContext, card);
+            await CardCmd.Exhaust(choiceContext, exhaust);
         }
-        await PlayerCmd.GainEnergy(base.DynamicVars.Energy.BaseValue, base.Owner);
-        await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
+        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Glam>().CanEnchant(card) && card.Type != CardType.None), this)).FirstOrDefault<CardModel>();
+        if (card == null)
+        {
+            card = (CardModel)null;
+        }
+        else
+        {
+            CardCmd.Enchant<Glam>(card, 1m);
+            await EnchantCmd.OnEnchant(choiceContext, this.Owner, card, (CardModel) this);
+            card = (CardModel)null;
+        }
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Energy.UpgradeValueBy(1m);
-        base.DynamicVars.Cards.UpgradeValueBy(1m);
+        this.DynamicVars.Cards.UpgradeValueBy(-2m);
     }
 }

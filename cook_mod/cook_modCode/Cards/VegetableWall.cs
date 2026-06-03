@@ -33,12 +33,12 @@ public class VegetableWall() : CustomCardModel(1, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        await FlavorCmd.ChangeFlavor(choiceContext, base.Owner, this, bitter: base.DynamicVars["Bitter"].IntValue);
+        await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
+        await FlavorCmd.ChangeFlavor(choiceContext, this.Owner, this, bitter: this.DynamicVars["Bitter"].IntValue);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Block.UpgradeValueBy(3m);
+        this.DynamicVars.Block.UpgradeValueBy(3m);
     }
 }

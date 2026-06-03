@@ -46,10 +46,7 @@ public class TheCook : PlaceholderCharacterModel
     
     public override CardPoolModel CardPool => ModelDb.CardPool<TheCookCardPool>();
     public override RelicPoolModel RelicPool => (RelicPoolModel) ModelDb.RelicPool<TheCookRelicPool>();
-    public override PotionPoolModel PotionPool
-    {
-        get => (PotionPoolModel) ModelDb.PotionPool<RegentPotionPool>();
-    }
+    public override PotionPoolModel PotionPool => (PotionPoolModel) ModelDb.PotionPool<TheCookPotionPool>();
     
     /*  PlaceholderCharacterModel will utilize placeholder basegame assets for most of your character assets until you
         override all the other methods that define those assets. 

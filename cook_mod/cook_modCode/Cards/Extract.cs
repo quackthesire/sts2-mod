@@ -33,19 +33,19 @@ public class Extract() : CustomCardModel(1, CardType.Skill,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PrepareCmd.Discard(choiceContext, base.Owner, base.DynamicVars.Cards.IntValue, 0, base.DynamicVars.Cards.IntValue, cardPlay);
+        await PrepareCmd.Discard(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, this.DynamicVars.Cards.IntValue, cardPlay);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Cards.UpgradeValueBy(1m);
+        this.DynamicVars.Cards.UpgradeValueBy(1m);
     }
     
     public async Task OnPrepared(PlayerChoiceContext ctx, Player player, int amount, int selected, CardPlay?  cardPlay)
     {
-        if (player != base.Owner || cardPlay == null || cardPlay.Card != this)
+        if (player != this.Owner || cardPlay == null || cardPlay.Card != this)
             return;
 
-        await FlavorCmd.AddRandomGenericFlavor(ctx, base.Owner, this, 1);
+        await FlavorCmd.AddRandomGenericFlavor(ctx, this.Owner, this, 1);
     }
 }

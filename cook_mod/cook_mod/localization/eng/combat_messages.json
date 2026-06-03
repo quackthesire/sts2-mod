@@ -6,5 +6,7 @@
   "PREPARE-EXHAUST-FREE": "Choose up to {Amount:plural:a card|[blue]{Amount}[/blue] cards} to [gold]Exhaust[/gold].",
   "PREPARE-HAND-FORCED": "Choose {Amount:plural:a card|[blue]{Amount}[/blue] cards} to put into your [gold]Hand[/gold].",
   "PREPARE-HAND-FREE": "Choose up to {Amount:plural:a card|[blue]{Amount}[/blue] cards} to put into your [gold]Hand[/gold].",
+  "PREPARE-PLAY-FORCED": "Choose {Amount:plural:a card|[blue]{Amount}[/blue] cards} to play.",
+  "PREPARE-PLAY-FREE": "Choose up to {Amount:plural:a card|[blue]{Amount}[/blue] cards} to play.",
   "PREPARE-LOOK": "View {Amount:plural:the top card|the top [blue]{Amount}[/blue] cards} of your [gold]Draw Pile[/gold]."
 }

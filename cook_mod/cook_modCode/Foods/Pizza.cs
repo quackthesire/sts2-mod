@@ -29,17 +29,17 @@ public class Pizza() : FoodCardModel(1, CardType.Power,
     CardRarity.Token, TargetType.Self, sweet: 1, sour: 1, salty: 2)
 {
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PlatingPower>(), HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PlatingPower>(7m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PlatingPower>(6m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<PlatingPower>(choiceContext, base.Owner.Creature, base.DynamicVars["PlatingPower"].BaseValue, base.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<PlatingPower>(choiceContext, this.Owner.Creature, this.DynamicVars["PlatingPower"].BaseValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["PlatingPower"].UpgradeValueBy(2m);
+        this.DynamicVars["PlatingPower"].UpgradeValueBy(2m);
     }
 }

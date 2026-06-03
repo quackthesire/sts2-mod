@@ -46,4 +46,8 @@ public class CookHook
     {
         return Dispatch<IOnFlavor>(ctx, player, m => m.OnFlavor(ctx, player, original, modified));
     }
+    public static Task OnEnchant(PlayerChoiceContext ctx, Player player, CardModel card, CardModel? cardSource)
+    {
+        return Dispatch<IOnEnchant>(ctx, player, m => m.OnEnchant(ctx, player, card, cardSource));
+    }
 }

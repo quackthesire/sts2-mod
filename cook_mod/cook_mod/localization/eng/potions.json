@@ -1,0 +1,8 @@
+{
+  "COOK_MOD-SPLINTER_POTION.description": "Apply {BleedPower:diff()} [gold]Bleed[/gold] to ALL enemies.",
+  "COOK_MOD-SPLINTER_POTION.title": "Splinter Potion",
+  "COOK_MOD-HERBAL_EXTRACT.description": "Gain {Flavors:diff()} [gold]{Flavors:plural:Generic Flavor|Generic Flavors}[/gold]. Gain 1 [gold]Spicy[/gold].",
+  "COOK_MOD-HERBAL_EXTRACT.title": "Herbal Extract",
+  "COOK_MOD-GLITTERBOMB.description": "[gold]Enchant[/gold] up to {Cards:diff()} {Cards:plural:card|cards} with [gold]Glam[/gold].",
+  "COOK_MOD-GLITTERBOMB.title": "Glitterbomb"
+}

@@ -25,7 +25,7 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Cranberry() : FoodCardModel(0, CardType.Skill,
+public class Cranberry() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.AnyEnemy, sweet: 1, sour: 3, bitter: 1)
 {
     
@@ -36,11 +36,11 @@ public class Cranberry() : FoodCardModel(0, CardType.Skill,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         
-        await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, base.DynamicVars["WeakPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, this.DynamicVars["WeakPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["WeakPower"].UpgradeValueBy(1m);
+        this.DynamicVars["WeakPower"].UpgradeValueBy(1m);
     }
 }

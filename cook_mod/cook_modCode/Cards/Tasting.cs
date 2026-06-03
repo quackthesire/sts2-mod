@@ -32,12 +32,12 @@ public class Tasting() : CustomCardModel(2, CardType.Attack,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await FlavorCmd.AddRandomFlavor(choiceContext, base.Owner, this, base.CombatState.HittableEnemies.Count);
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).TargetingAllOpponents(base.CombatState).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await FlavorCmd.AddRandomFlavor(choiceContext, this.Owner, this, this.CombatState.HittableEnemies.Count);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).TargetingAllOpponents(this.CombatState).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(4m);
+        this.DynamicVars.Damage.UpgradeValueBy(4m);
     }
 }

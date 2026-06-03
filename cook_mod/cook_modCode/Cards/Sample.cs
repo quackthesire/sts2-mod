@@ -32,11 +32,11 @@ public class Sample() : CustomCardModel(1, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await FlavorCmd.AddRandomGenericFlavor(choiceContext, base.Owner, this, base.DynamicVars["Flavors"].IntValue);
+        await FlavorCmd.AddRandomGenericFlavor(choiceContext, this.Owner, this, this.DynamicVars["Flavors"].IntValue);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["Flavors"].UpgradeValueBy(1m);
+        this.DynamicVars["Flavors"].UpgradeValueBy(1m);
     }
 }

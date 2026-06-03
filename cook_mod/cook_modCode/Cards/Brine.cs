@@ -33,12 +33,12 @@ public class Brine() : CustomCardModel(1, CardType.Attack,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).WithHitCount(base.DynamicVars.Repeat.IntValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
-        await FlavorCmd.ChangeFlavor(choiceContext, base.Owner, this, sour: base.DynamicVars["Sour"].IntValue, salty: base.DynamicVars["Salty"].IntValue);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).WithHitCount(this.DynamicVars.Repeat.IntValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await FlavorCmd.ChangeFlavor(choiceContext, this.Owner, this, sour: this.DynamicVars["Sour"].IntValue, salty: this.DynamicVars["Salty"].IntValue);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(2m);
+        this.DynamicVars.Damage.UpgradeValueBy(2m);
     }
 }

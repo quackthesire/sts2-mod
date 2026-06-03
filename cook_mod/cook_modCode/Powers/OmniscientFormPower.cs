@@ -29,8 +29,8 @@ public class OmniscientFormPower : CustomPowerModel
 
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
-        if (player != base.Owner.Player)
+        if (player != this.Owner.Player)
             return;
-        await PrepareCmd.Discard(choiceContext, player, base.Amount, 0, base.Amount, null);
+        await PrepareCmd.Discard(choiceContext, player, this.Amount, 0, this.Amount, null);
     }
 }

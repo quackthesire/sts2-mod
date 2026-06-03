@@ -28,10 +28,12 @@ namespace cook_mod.cook_modCode.Foods;
 [Pool(typeof(TokenCardPool))]
 
 public class GreenTea() : FoodCardModel(1, CardType.Skill,
-    CardRarity.Token, TargetType.Self, bitter: 4)
+    CardRarity.Token, TargetType.Self, bitter: 5)
 {
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Bitter>()];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

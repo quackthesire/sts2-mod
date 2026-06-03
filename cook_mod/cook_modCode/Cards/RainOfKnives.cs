@@ -28,21 +28,23 @@ public class RainOfKnives() : CustomCardModel(3, CardType.Skill,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(10m, ValueProp.Move), new PowerVar<BleedPower>(15m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(10m, ValueProp.Move), new PowerVar<BleedPower>(13m)];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        foreach (Creature hittableEnemy in base.CombatState.HittableEnemies)
+        await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
+        foreach (Creature hittableEnemy in this.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<BleedPower>(choiceContext, hittableEnemy, base.DynamicVars["BleedPower"].BaseValue,
-                base.Owner.Creature, this);
+            await PowerCmd.Apply<BleedPower>(choiceContext, hittableEnemy, this.DynamicVars["BleedPower"].BaseValue,
+                this.Owner.Creature, this);
         }
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Block.UpgradeValueBy(3m);
-        base.DynamicVars["BleedPower"].UpgradeValueBy(4m);
+        this.DynamicVars.Block.UpgradeValueBy(3m);
+        this.DynamicVars["BleedPower"].UpgradeValueBy(4m);
     }
 }

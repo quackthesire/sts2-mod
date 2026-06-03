@@ -32,11 +32,11 @@ public class CrystallineGrid() : CustomCardModel(1, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await FlavorCmd.ChangeFlavor(choiceContext, base.Owner, this, sweet: base.DynamicVars["Sweet"].IntValue, salty: base.DynamicVars["Salty"].IntValue);
+        await FlavorCmd.ChangeFlavor(choiceContext, this.Owner, this, sweet: this.DynamicVars["Sweet"].IntValue, salty: this.DynamicVars["Salty"].IntValue);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["Sweet"].UpgradeValueBy(1m);
+        this.DynamicVars["Sweet"].UpgradeValueBy(1m);
     }
 }

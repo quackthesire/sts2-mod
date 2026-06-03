@@ -32,6 +32,6 @@ public class RecyclingPower : CustomPowerModel
         if (creator == null || creator.Creature != recycling.Owner || !(card is FoodCardModel))
             return;
         recycling.Flash();
-        await FlavorCmd.AddRandomGenericFlavor(new BlockingPlayerChoiceContext(), base.Owner.Player, null, base.Amount);
+        await FlavorCmd.AddRandomGenericFlavor(new BlockingPlayerChoiceContext(), this.Owner.Player, null, this.Amount);
     }
 }

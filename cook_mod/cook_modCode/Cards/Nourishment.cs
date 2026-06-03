@@ -30,11 +30,11 @@ public class Nourishment() : CustomCardModel(1, CardType.Power,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<NourishmentPower>(choiceContext, base.Owner.Creature, base.DynamicVars["NourishmentPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<NourishmentPower>(choiceContext, this.Owner.Creature, this.DynamicVars["NourishmentPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["NourishmentPower"].UpgradeValueBy(1m);
+        this.DynamicVars["NourishmentPower"].UpgradeValueBy(1m);
     }
 }

@@ -27,16 +27,16 @@ public class Lash() : CustomCardModel(2, CardType.Skill,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BleedPower>(8m), new CardsVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BleedPower>(7m), new CardsVar(2)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<BleedPower>(choiceContext, cardPlay.Target, base.DynamicVars["BleedPower"].IntValue, base.Owner.Creature, this);
-        await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
+        await PowerCmd.Apply<BleedPower>(choiceContext, cardPlay.Target, this.DynamicVars["BleedPower"].IntValue, this.Owner.Creature, this);
+        await CardPileCmd.Draw(choiceContext, this.DynamicVars.Cards.BaseValue, this.Owner);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["BleedPower"].UpgradeValueBy(3m);
+        this.DynamicVars["BleedPower"].UpgradeValueBy(3m);
     }
 }

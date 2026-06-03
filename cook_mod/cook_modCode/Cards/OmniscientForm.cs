@@ -27,15 +27,15 @@ public class OmniscientForm() : CustomCardModel(3, CardType.Power,
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<OmniscientFormPower>(5m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<OmniscientFormPower>(6m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<OmniscientFormPower>(choiceContext, base.Owner.Creature, base.DynamicVars["OmniscientFormPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<OmniscientFormPower>(choiceContext, this.Owner.Creature, this.DynamicVars["OmniscientFormPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["OmniscientFormPower"].UpgradeValueBy(2m);
+        this.DynamicVars["OmniscientFormPower"].UpgradeValueBy(3m);
     }
 }

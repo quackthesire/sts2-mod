@@ -29,19 +29,19 @@ public class Pepper() : FoodCardModel(2, CardType.Power,
     CardRarity.Token, TargetType.Self, spicy: 4)
 {
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Spicy>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>(), HoverTipFactory.FromPower<DexterityPower>(), HoverTipFactory.FromPower<Spicy>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(5m), new PowerVar<DexterityPower>(3m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(3m), new PowerVar<DexterityPower>(2m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, (CardModel) this);
-        await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, base.DynamicVars["DexterityPower"].BaseValue, base.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, this.Owner.Creature, this.DynamicVars["StrengthPower"].BaseValue, this.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<DexterityPower>(choiceContext, this.Owner.Creature, this.DynamicVars["DexterityPower"].BaseValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["StrengthPower"].UpgradeValueBy(2m);
-        base.DynamicVars["DexterityPower"].UpgradeValueBy(1m);
+        this.DynamicVars["StrengthPower"].UpgradeValueBy(1m);
+        this.DynamicVars["DexterityPower"].UpgradeValueBy(1m);
     }
 }

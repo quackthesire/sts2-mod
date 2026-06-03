@@ -23,7 +23,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace cook_mod.cook_modCode.Foods;
 
-[Pool(typeof(TokenCardPool))]
+[Pool(typeof(DeprecatedCardPool))]
 
 public class Yogurt() : FoodCardModel(1, CardType.Power,
     CardRarity.Token, TargetType.Self, sweet: 3, sour: 2)
@@ -35,11 +35,11 @@ public class Yogurt() : FoodCardModel(1, CardType.Power,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, this.Owner.Creature, this.DynamicVars["StrengthPower"].BaseValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["StrengthPower"].UpgradeValueBy(1m);
+        this.DynamicVars["StrengthPower"].UpgradeValueBy(1m);
     }
 }

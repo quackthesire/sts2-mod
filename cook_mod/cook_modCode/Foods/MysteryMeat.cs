@@ -26,7 +26,7 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class MysteryMeat() : FoodCardModel(0, CardType.Skill,
+public class MysteryMeat() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, sweet: 1, sour: 1, salty: 1, bitter: 1, spicy: 1)
 {
     
@@ -38,15 +38,15 @@ public class MysteryMeat() : FoodCardModel(0, CardType.Skill,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (CardModel card in CardFactory.GetDistinctForCombat(base.Owner, base.Owner.Character.CardPool.GetUnlockedCards(base.Owner.UnlockState, base.RunState.CardMultiplayerConstraint), base.DynamicVars.Cards.IntValue, base.Owner.RunState.Rng.CombatCardGeneration))
+        foreach (CardModel card in CardFactory.GetDistinctForCombat(this.Owner, this.Owner.Character.CardPool.GetUnlockedCards(this.Owner.UnlockState, this.Owner.RunState.CardMultiplayerConstraint), this.DynamicVars.Cards.IntValue, this.Owner.RunState.Rng.CombatCardGeneration))
         {
             card.SetToFreeThisTurn();
-            CardPileAddResult combat = await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, base.Owner);
+            CardPileAddResult combat = await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, this.Owner);
         }
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Cards.UpgradeValueBy(1);
+        this.DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

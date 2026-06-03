@@ -23,7 +23,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace cook_mod.cook_modCode.Foods;
 
-[Pool(typeof(TokenCardPool))]
+[Pool(typeof(DeprecatedCardPool))]
 
 public class Butter() : FoodCardModel(1, CardType.Power,
     CardRarity.Token, TargetType.Self, sweet: 1, salty: 4)
@@ -35,11 +35,11 @@ public class Butter() : FoodCardModel(1, CardType.Power,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, base.DynamicVars["DexterityPower"].BaseValue, base.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<DexterityPower>(choiceContext, this.Owner.Creature, this.DynamicVars["DexterityPower"].BaseValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()
     {
-        base.DynamicVars["DexterityPower"].UpgradeValueBy(1m);
+        this.DynamicVars["DexterityPower"].UpgradeValueBy(1m);
     }
 }

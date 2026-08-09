@@ -28,6 +28,7 @@ namespace cook_mod.cook_modCode.Foods;
 public class Pizza() : FoodCardModel(1, CardType.Power,
     CardRarity.Token, TargetType.Self, sweet: 1, sour: 1, salty: 2)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/pizza.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PlatingPower>(), HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>()];
     

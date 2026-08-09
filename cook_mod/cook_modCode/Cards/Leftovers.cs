@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Leftovers() : CustomCardModel(1, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/leftovers.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Retain)];
     

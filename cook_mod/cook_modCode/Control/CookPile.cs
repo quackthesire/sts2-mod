@@ -20,39 +20,36 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 
 namespace cook_mod.cook_modCode.Control;
 
-public partial class CookPile : Button
+public partial class CookPile : TextureButton
 {
     public static Player _player;
     public static Label _label;
-    public static Button _button;
-    public static TextureRect _texRect;
+    public static TextureButton _button;
     
     public static AddedNode<NEnergyCounter, CookPile> Node = new((energy) => {
+        var tex = ResourceLoader.Load<Texture2D>("res://cook_mod/menu.png");
         var button = new CookPile
         {
-            Position = new Vector2(35, -50),
-            Text = "+",
-            Size = new Vector2(50, 50),
-            MouseFilter = MouseFilterEnum.Stop
+            Position = new Vector2(15, -100),
+            Size = new Vector2(100, 100),
+            MouseFilter = MouseFilterEnum.Stop,
+            FocusMode = FocusModeEnum.None,
+
+            TextureNormal = tex,
+            TextureHover = tex,
+            TexturePressed = tex,
         };
-        
-        var tex = ResourceLoader.Load<Texture2D>("res://cook_mod/mod_image.png");
-        var size = tex.GetSize();
-        var texRect = new TextureRect();
-        texRect.Name = tex.ResourcePath;
-        texRect.Size = new(50, 50);
-        texRect.Texture = tex;
-        texRect.PivotOffset = size / 2f;
-        texRect.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
-        texRect.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
-        texRect.MouseFilter = MouseFilterEnum.Ignore;
-        button.AddChild(texRect);
-        var label = new Label { Text = "0" };
+        button.StretchMode = TextureButton.StretchModeEnum.Scale;
+        button.AddThemeStyleboxOverride("focus", new StyleBoxEmpty());
+        var label = new Label
+        {
+            Text = "0"
+        };
+        label.AddThemeColorOverride("font_color", Colors.Black);
         label.SetAnchorsAndOffsetsPreset(LayoutPreset.Center);
         button.AddChild(label);
         _label = label;
         _button = button;
-        _texRect = texRect;
 
         button.MouseEntered += () =>
         {
@@ -60,7 +57,7 @@ public partial class CookPile : Button
                 return;
             NHoverTipSet tip = NHoverTipSet.CreateAndShow((Godot.Control) energy, (IHoverTip)new HoverTip(new LocString("static_hover_tips", "COOK_PILE.title"), new LocString("static_hover_tips", "COOK_PILE.description")));
             if (tip != null)
-                tip.GlobalPosition = energy.GlobalPosition + new Vector2(-70f, -200f);
+                tip.GlobalPosition = energy.GlobalPosition + new Vector2(-70f, -250f);
         };
         
         button.MouseExited += () =>

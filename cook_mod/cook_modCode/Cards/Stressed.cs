@@ -24,8 +24,9 @@ namespace cook_mod.cook_modCode.Cards;
 public class Stressed() : CustomCardModel(0, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/stressed.png";
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

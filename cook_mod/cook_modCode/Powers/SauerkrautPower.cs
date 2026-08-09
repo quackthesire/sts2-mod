@@ -16,9 +16,10 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace cook_mod.cook_modCode.Powers;
 
-public class SauerkrautPower : TemporaryStrengthPower
+public class SauerkrautPower : CustomTemporaryPowerModelWrapper<Sauerkraut, StrengthPower>
 {
-    public override AbstractModel OriginModel => (AbstractModel) ModelDb.Card<Sauerkraut>();
+    
+    public sealed override string CustomPackedIconPath => "res://cook_mod/sauerkraut_power.png";
 
-    protected override bool IsPositive => false;
+    public sealed override string CustomBigIconPath => "res://cook_mod/sauerkraut_power.png";
 }

@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class AcquiredTaste() : CustomCardModel(1, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/acquired_taste.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<AcquiredTastePower>()];
     
@@ -37,6 +38,6 @@ public class AcquiredTaste() : CustomCardModel(1, CardType.Power,
     
     protected override void OnUpgrade()
     {
-        this.AddKeyword(CardKeyword.Innate);
+        this.EnergyCost.UpgradeBy(-1);
     }
 }

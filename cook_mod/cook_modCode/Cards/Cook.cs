@@ -37,7 +37,7 @@ namespace cook_mod.cook_modCode.Cards;
 [Pool(typeof(DeprecatedCardPool))]
 
 public class Cook() : CustomCardModel(0, CardType.None,
-    CardRarity.Token, TargetType.Self)
+    CardRarity.None, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     
@@ -46,8 +46,10 @@ public class Cook() : CustomCardModel(0, CardType.None,
         await CookCmd.Cook(choiceContext, this.Owner, this);
     }
     
-    protected override PileType GetResultPileTypeForCardPlay()
+    protected override CardLocation GetResultLocationForCardPlay()
     {
-        return PileType.Hand;
+        CardLocation locationForCardPlay = base.GetResultLocationForCardPlay();
+        locationForCardPlay.pileType = PileType.Hand;
+        return locationForCardPlay;
     }
 }

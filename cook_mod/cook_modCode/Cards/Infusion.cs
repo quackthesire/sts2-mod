@@ -25,10 +25,11 @@ namespace cook_mod.cook_modCode.Cards;
 public class Infusion() : CustomCardModel(2, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/infusion.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<GenericFlavor>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Generic_Flavor)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<InfusionPower>(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<InfusionPower>(3m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

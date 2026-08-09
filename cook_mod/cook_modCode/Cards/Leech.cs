@@ -16,6 +16,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using cook_mod.cook_modCode.Powers;
 using cook_mod.cook_modCode.Cards;
+using cook_mod.cook_modCode.Keywords;
 
 namespace cook_mod.cook_modCode.Cards;
 
@@ -24,18 +25,19 @@ namespace cook_mod.cook_modCode.Cards;
 public class Leech() : CustomCardModel(1, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/leech.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>(), HoverTipFactory.FromKeyword(CustomKeywords.Flavor)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(50m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<LeechPower>(1m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<LeechPower>(choiceContext, this.Owner.Creature, this.DynamicVars.Block.BaseValue, this.Owner.Creature, this);
+        await PowerCmd.Apply<LeechPower>(choiceContext, this.Owner.Creature, this.DynamicVars["LeechPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Block.UpgradeValueBy(25m);
+        this.EnergyCost.UpgradeBy(-1);
     }
 }

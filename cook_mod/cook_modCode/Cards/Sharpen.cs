@@ -24,6 +24,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Sharpen() : CustomCardModel(1, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/sharpen.png";
     public override bool GainsBlock => true;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Knife>(this.IsUpgraded)];

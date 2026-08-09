@@ -26,14 +26,17 @@ namespace cook_mod.cook_modCode.Cards;
 public class Extract() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self), IOnPrepared
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/extract.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>(), HoverTipFactory.FromPower<GenericFlavor>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare), HoverTipFactory.FromKeyword(CustomKeywords.Generic_Flavor)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PrepareCmd.Discard(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, this.DynamicVars.Cards.IntValue, cardPlay);
+        await PrepareCmd.Discard(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, -1, cardPlay);
     }
     
     protected override void OnUpgrade()
@@ -45,7 +48,6 @@ public class Extract() : CustomCardModel(1, CardType.Skill,
     {
         if (player != this.Owner || cardPlay == null || cardPlay.Card != this)
             return;
-
         await FlavorCmd.AddRandomGenericFlavor(ctx, this.Owner, this, 1);
     }
 }

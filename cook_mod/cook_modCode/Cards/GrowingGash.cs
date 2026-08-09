@@ -24,6 +24,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class GrowingGash() : CustomCardModel(1, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/growing_gash.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     

@@ -26,8 +26,9 @@ namespace cook_mod.cook_modCode.Foods;
 [Pool(typeof(TokenCardPool))]
 
 public class Cracker() : FoodCardModel(1, CardType.Power,
-    CardRarity.Token, TargetType.Self, sweet: 2, salty: 4)
+    CardRarity.Token, TargetType.Self, sweet: 3, salty: 4)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/cracker.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BufferPower>(), HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Salty>()];
     

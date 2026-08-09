@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Spices() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/spices.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Spicy>()];
     

@@ -26,11 +26,11 @@ namespace cook_mod.cook_modCode.Cards;
 public class Seconds() : CustomCardModel(1, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/seconds.png";
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SecondsPower>(1m)];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<SecondsPower>(choiceContext, this.Owner.Creature, this.DynamicVars["SecondsPower"].BaseValue, this.Owner.Creature, (CardModel) this);

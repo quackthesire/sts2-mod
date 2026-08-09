@@ -27,6 +27,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class UnwaveringBlade() : CustomCardModel(1, CardType.Attack,
     CardRarity.Uncommon, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/unwavering_blade.png";
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -38,13 +39,13 @@ public class UnwaveringBlade() : CustomCardModel(1, CardType.Attack,
         }
     }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10m, ValueProp.Move), new CardsVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10m, ValueProp.Move), new CardsVar(1)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object)cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel)this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
-        foreach (CardModel card in PileType.Hand.GetPile(this.Owner).Cards.Where<CardModel>((Func<CardModel, bool>)(card => ModelDb.Enchantment<Steady>().CanEnchant(card) && card.Type != CardType.None)).ToList<CardModel>().StableShuffle<CardModel>(this.Owner.RunState.Rng.Shuffle).Take<CardModel>(2))
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
+        foreach (CardModel card in PileType.Hand.GetPile(this.Owner).Cards.Where<CardModel>((Func<CardModel, bool>)(card => ModelDb.Enchantment<Steady>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null)).ToList<CardModel>().StableShuffle<CardModel>(this.Owner.RunState.Rng.Shuffle).Take<CardModel>(2))
         {
             if (card == null)
                 continue;
@@ -58,6 +59,6 @@ public class UnwaveringBlade() : CustomCardModel(1, CardType.Attack,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Damage.UpgradeValueBy(3m);
+        this.DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

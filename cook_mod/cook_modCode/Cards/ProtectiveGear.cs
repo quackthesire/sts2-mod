@@ -25,8 +25,9 @@ namespace cook_mod.cook_modCode.Cards;
 public class ProtectiveGear() : CustomCardModel(1, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/protective_gear.png";
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ProtectiveGearPower>(4m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ProtectiveGearPower>(3m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -35,6 +36,6 @@ public class ProtectiveGear() : CustomCardModel(1, CardType.Power,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["ProtectiveGearPower"].UpgradeValueBy(2m);
+        this.DynamicVars["ProtectiveGearPower"].UpgradeValueBy(1m);
     }
 }

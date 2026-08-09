@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class RushOrder() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/rush_order.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -38,12 +39,10 @@ public class RushOrder() : CustomCardModel(1, CardType.Skill,
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Swift", 2m), new CardsVar(1)];
     
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-    
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         CardModel card = (await CardPileCmd.Draw(choiceContext, this.DynamicVars.Cards.BaseValue, this.Owner)).FirstOrDefault<CardModel>();
-        if (card == null || !ModelDb.Enchantment<Swift>().CanEnchant(card) || card.Type == CardType.None)
+        if (card == null || !ModelDb.Enchantment<Swift>().CanEnchant(card) || card.Type == CardType.None || card.Enchantment != null)
         {
             card = (CardModel)null;
         }

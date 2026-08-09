@@ -21,6 +21,7 @@ using Godot;
 using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 
 
 namespace cook_mod.cook_modCode.Cards;
@@ -30,6 +31,8 @@ namespace cook_mod.cook_modCode.Cards;
 public class EndlessConveyor() : CustomCardModel(1, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/endless_conveyor.png";
+    
     private CardModel? _mockSelectedCard;
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -43,9 +46,15 @@ public class EndlessConveyor() : CustomCardModel(1, CardType.Skill,
             if (food.Rarity == CardRarity.Token && food is FoodCardModel && !(food is Skip))
                 allFoods.Add(food);
         }
+
+        List<CardModel> list = CardFactory
+            .GetDistinctForCombat(this.Owner, allFoods, 3, this.Owner.RunState.Rng.CombatCardGeneration)
+            .ToList<CardModel>();
         CardModel card;
+        if (this.IsUpgraded)
+            CardCmd.Upgrade((IEnumerable<CardModel>) list, CardPreviewStyle.HorizontalLayout);
         if (this._mockSelectedCard == null)
-            card = await CardSelectCmd.FromChooseACardScreen(choiceContext, (IReadOnlyList<CardModel>) CardFactory.GetDistinctForCombat(this.Owner, allFoods, 3, this.Owner.RunState.Rng.CombatCardGeneration).ToList<CardModel>(), this.Owner, true);
+            card = await CardSelectCmd.FromChooseACardScreen(choiceContext, (IReadOnlyList<CardModel>) list, this.Owner, true);
         else
             card = this._mockSelectedCard;
         if (card == null)
@@ -53,10 +62,6 @@ public class EndlessConveyor() : CustomCardModel(1, CardType.Skill,
         CardPileAddResult combat = await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, this.Owner);
     }
     
-    protected override void OnUpgrade()
-    {
-        this.EnergyCost.UpgradeBy(-1);
-    }
     public void MockSelectedCard(CardModel card)
     {
         this.AssertMutable();

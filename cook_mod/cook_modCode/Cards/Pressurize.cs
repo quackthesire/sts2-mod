@@ -25,13 +25,14 @@ namespace cook_mod.cook_modCode.Cards;
 public class Pressurize() : CustomCardModel(1, CardType.Skill,
     CardRarity.Common, TargetType.AllEnemies)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/pressurize.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BleedPower>(2m), new PowerVar<VulnerablePower>(1m)];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-    
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         foreach (Creature hittableEnemy in this.CombatState.HittableEnemies)
@@ -45,7 +46,6 @@ public class Pressurize() : CustomCardModel(1, CardType.Skill,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["VulnerablePower"].UpgradeValueBy(1m);
-        this.DynamicVars["BleedPower"].UpgradeValueBy(1m);
+        this.DynamicVars["BleedPower"].UpgradeValueBy(2m);
     }
 }

@@ -26,10 +26,11 @@ namespace cook_mod.cook_modCode.Cards;
 public class GrandFeast() : CustomCardModel(4, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/grand_feast.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(10), new DynamicVar("Selection", 1m), new RepeatVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(6), new DynamicVar("Selection", 1m), new RepeatVar(3)];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -40,6 +41,6 @@ public class GrandFeast() : CustomCardModel(4, CardType.Skill,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["Selection"].UpgradeValueBy(1m);
+        this.DynamicVars.Cards.UpgradeValueBy(4m);
     }
 }

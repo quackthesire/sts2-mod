@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -25,13 +26,14 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Cranberry() : FoodCardModel(1, CardType.Skill,
+public class Cranberry() : FoodCardModel(0, CardType.Skill,
     CardRarity.Token, TargetType.AnyEnemy, sweet: 1, sour: 3, bitter: 1)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/cranberry.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Bitter>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WeakPower>(3m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WeakPower>(2m), new ExhaustiveVar(3m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

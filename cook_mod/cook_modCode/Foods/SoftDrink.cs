@@ -27,13 +27,14 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class SoftDrink() : CustomCardModel(2, CardType.Skill,
+public class SoftDrink() : CustomCardModel(3, CardType.Skill,
     CardRarity.Token, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/soft_drink.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<IntangiblePower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<IntangiblePower>(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<IntangiblePower>(3m)];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
 

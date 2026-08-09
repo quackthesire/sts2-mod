@@ -21,11 +21,15 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class StockpilePower : CustomPowerModel, IOnPrepared
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/stockpile_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/stockpile_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
     public async Task OnPrepared(PlayerChoiceContext ctx, Player player, int amount, int selected, CardPlay? cardPlay)
     {
@@ -33,7 +37,7 @@ public class StockpilePower : CustomPowerModel, IOnPrepared
             return;
         for (int i = 0; i < selected; i++)
         {
-            await CreatureCmd.Damage(ctx, (IEnumerable<Creature>) this.CombatState.HittableEnemies, (Decimal) this.Amount, ValueProp.Unpowered, this.Owner, (CardModel) null);
+            await CreatureCmd.Damage(ctx, (IEnumerable<Creature>) this.CombatState.HittableEnemies, (Decimal) this.Amount, ValueProp.Unpowered, this.Owner, null, null);
         }
     }
 }

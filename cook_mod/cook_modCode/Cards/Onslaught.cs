@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Onslaught() : CustomCardModel(2, CardType.Attack,
     CardRarity.Rare, TargetType.AllEnemies)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/onslaught.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Retain)];
     
@@ -33,7 +34,7 @@ public class Onslaught() : CustomCardModel(2, CardType.Attack,
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).TargetingAllOpponents(this.CombatState).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).TargetingAllOpponents(this.CombatState).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
         await PowerCmd.Apply<RetainHandPower>(choiceContext, this.Owner.Creature, 1m, this.Owner.Creature, (CardModel) this);
     }
     

@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class StrikeCook() : CustomCardModel(1, CardType.Attack,
     CardRarity.Basic, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/strike_cook.png";
     protected override HashSet<CardTag> CanonicalTags
     {
         get => new HashSet<CardTag>() { CardTag.Strike };
@@ -42,7 +43,7 @@ public class StrikeCook() : CustomCardModel(1, CardType.Attack,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

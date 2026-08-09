@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class PowerPlay() : CustomCardModel(0, CardType.Attack,
     CardRarity.Uncommon, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/power_play.png";
     protected override bool IsPlayable
     {
         get
@@ -36,12 +37,12 @@ public class PowerPlay() : CustomCardModel(0, CardType.Attack,
 
     protected override bool ShouldGlowGoldInternal => this.IsPlayable;
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(11m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(13m, ValueProp.Move)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()

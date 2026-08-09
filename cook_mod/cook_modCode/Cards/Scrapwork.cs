@@ -23,17 +23,18 @@ namespace cook_mod.cook_modCode.Cards;
 
 [Pool(typeof(TheCookCardPool))]
 
-public class Scrapwork() : CustomCardModel(0, CardType.Skill,
+public class Scrapwork() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self), IOnPrepared
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/scrapwork.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>(), HoverTipFactory.FromCard<Knife>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare), HoverTipFactory.FromCard<Knife>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PrepareCmd.Exhaust(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, this.DynamicVars.Cards.IntValue, cardPlay);
+        await PrepareCmd.Exhaust(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, -1, cardPlay);
     }
     
     protected override void OnUpgrade()

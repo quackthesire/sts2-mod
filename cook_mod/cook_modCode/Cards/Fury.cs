@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Fury() : CustomCardModel(2, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/fury.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -43,7 +44,7 @@ public class Fury() : CustomCardModel(2, CardType.Power,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<StrengthPower>(choiceContext, this.Owner.Creature, this.DynamicVars.Strength.BaseValue, this.Owner.Creature, (CardModel) this);
-        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Instinct>().CanEnchant(card) && card.Type != CardType.None), this)).FirstOrDefault<CardModel>();
+        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Instinct>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null), this)).FirstOrDefault<CardModel>();
         if (card == null)
         {
             card = (CardModel)null;
@@ -58,6 +59,6 @@ public class Fury() : CustomCardModel(2, CardType.Power,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Strength.UpgradeValueBy(1m);
+        this.DynamicVars.Strength.UpgradeValueBy(2m);
     }
 }

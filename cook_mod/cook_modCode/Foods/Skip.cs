@@ -28,5 +28,5 @@ namespace cook_mod.cook_modCode.Foods;
 public class Skip() : FoodCardModel(0, CardType.None,
     CardRarity.None, TargetType.None)
 {
-    
+    public sealed override string CustomPortraitPath => "res://cook_mod/skip.png";
 }

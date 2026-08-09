@@ -28,10 +28,11 @@ namespace cook_mod.cook_modCode.Foods;
 public class Sauerkraut() : FoodCardModel(0, CardType.Skill,
     CardRarity.Token, TargetType.AllEnemies, sour: 3, salty: 1)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/sauerkraut.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SauerkrautPower>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SauerkrautPower>(8m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SauerkrautPower>(4m)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -40,12 +41,12 @@ public class Sauerkraut() : FoodCardModel(0, CardType.Skill,
         
         foreach (Creature hittableEnemy in (IEnumerable<Creature>) this.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<SauerkrautPower>(choiceContext, hittableEnemy, this.DynamicVars["SauerkrautPower"].BaseValue, this.Owner.Creature, (CardModel) this);
+            await PowerCmd.Apply<SauerkrautPower>(choiceContext, hittableEnemy, -this.DynamicVars["SauerkrautPower"].BaseValue, this.Owner.Creature, (CardModel) this);
         }
     }
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["SauerkrautPower"].UpgradeValueBy(3m);
+        this.DynamicVars["SauerkrautPower"].UpgradeValueBy(2m);
     }
 }

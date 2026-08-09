@@ -15,14 +15,18 @@ namespace cook_mod.cook_modCode.Powers;
 
 public sealed class BleedPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/bleed_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/bleed_power.png";
+    
     public override PowerType Type => PowerType.Debuff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
     public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
-        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), this.Owner, this.Amount, ValueProp.Unpowered, applier, cardSource);
-        await CookHook.OnBleed(new BlockingPlayerChoiceContext(), applier.Player, this.Amount, this.Amount, cardSource);
+        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), this.Owner, this.Amount, ValueProp.Unpowered, applier, cardSource, null);
+        await CookHook.OnBleed(new BlockingPlayerChoiceContext(), applier.Player, this.Amount, this.Amount, cardSource, this.Owner);
     }
 
     public override async Task BeforePowerAmountChanged(PowerModel power, decimal amount, Creature target,
@@ -31,8 +35,7 @@ public sealed class BleedPower : CustomPowerModel
     {
         if (!(power is BleedPower) || target != this.Owner)
             return;
-        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), this.Owner, this.Amount + amount,
-                    ValueProp.Unpowered, applier, cardSource);
-        await CookHook.OnBleed(new BlockingPlayerChoiceContext(), applier.Player, this.Amount + (int) amount, (int) amount, cardSource);
+        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), this.Owner, this.Amount + amount, ValueProp.Unpowered, applier, cardSource, null);
+        await CookHook.OnBleed(new BlockingPlayerChoiceContext(), applier.Player, this.Amount + (int) amount, (int) amount, cardSource, this.Owner);
     }
 }

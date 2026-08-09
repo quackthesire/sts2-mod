@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class BatchPrep() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/batch_prep.png";
     
     private const string _calculatedEnergyKey = "CalculatedEnergy";
     
@@ -42,7 +43,10 @@ public class BatchPrep() : CustomCardModel(1, CardType.Skill,
                 CardPile pile = card.Pile;
                 if ((pile != null ? (pile.Type == PileType.Hand ? 1 : 0) : 0) != 0)
                     --count;
-                count /= 2;
+                int div = 3;
+                if (card.IsUpgraded)
+                    div = 2;
+                count /= div;
                 return (Decimal) count;
             }))
     ];
@@ -50,10 +54,5 @@ public class BatchPrep() : CustomCardModel(1, CardType.Skill,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PlayerCmd.GainEnergy((int) ((CalculatedVar) this.DynamicVars["CalculatedEnergy"]).Calculate(this.Owner.Creature), this.Owner);
-    }
-    
-    protected override void OnUpgrade()
-    {
-        this.EnergyCost.UpgradeBy(-1);
     }
 }

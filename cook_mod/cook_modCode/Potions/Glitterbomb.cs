@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Potions;
 
 public class Glitterbomb : CustomPotionModel
 {
+    public sealed override string CustomPackedImagePath => "res://cook_mod/glitterbomb.png";
     public override PotionRarity Rarity => PotionRarity.Rare;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.Self;
@@ -45,7 +46,7 @@ public class Glitterbomb : CustomPotionModel
     protected override async Task OnUse(PlayerChoiceContext ctx, Creature? target)
     {
         if (target?.Player == null) return;
-        List<CardModel> cards = (await CardSelectCmd.FromHand(ctx, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 0, this.DynamicVars.Cards.IntValue), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Glam>().CanEnchant(card) && card.Type != CardType.None), this)).ToList();
+        List<CardModel> cards = (await CardSelectCmd.FromHand(ctx, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 0, this.DynamicVars.Cards.IntValue), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Glam>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null), this)).ToList();
         if (cards == null)
         {
             cards = (List<CardModel>)null;

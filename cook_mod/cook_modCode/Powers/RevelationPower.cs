@@ -23,6 +23,10 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class RevelationPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/revelation_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/revelation_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;

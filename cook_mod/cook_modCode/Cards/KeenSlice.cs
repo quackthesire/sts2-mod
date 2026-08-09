@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class KeenSlice() : CustomCardModel(1, CardType.Attack,
     CardRarity.Common, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/keen_slice.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -41,8 +42,8 @@ public class KeenSlice() : CustomCardModel(1, CardType.Attack,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
-        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Sharp>().CanEnchant(card) && card.Type != CardType.None), this)).FirstOrDefault<CardModel>();
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Sharp>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null), this)).FirstOrDefault<CardModel>();
         if (card == null)
         {
             card = (CardModel)null;

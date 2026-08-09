@@ -22,6 +22,8 @@ namespace cook_mod.cook_modCode.Potions;
 
 public class SplinterPotion : CustomPotionModel
 {
+    public sealed override string CustomPackedImagePath => "res://cook_mod/splinter_potion.png";
+
     public override PotionRarity Rarity => PotionRarity.Common;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.AllEnemies;

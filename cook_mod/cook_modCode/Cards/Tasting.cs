@@ -25,15 +25,16 @@ namespace cook_mod.cook_modCode.Cards;
 public class Tasting() : CustomCardModel(2, CardType.Attack,
     CardRarity.Uncommon, TargetType.AllEnemies)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/tasting.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Flavor>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Flavor)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m, ValueProp.Move)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await FlavorCmd.AddRandomFlavor(choiceContext, this.Owner, this, this.CombatState.HittableEnemies.Count);
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).TargetingAllOpponents(this.CombatState).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).TargetingAllOpponents(this.CombatState).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()

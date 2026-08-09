@@ -21,11 +21,15 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class FastFoodPower : CustomPowerModel, IOnPrepared
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/fast_food_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/fast_food_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
     public async Task OnPrepared(PlayerChoiceContext ctx, Player player, int amount, int selected, CardPlay? cardPlay)
     {

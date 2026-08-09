@@ -25,12 +25,11 @@ namespace cook_mod.cook_modCode.Cards;
 public class CalculatedPlan() : CustomCardModel(1, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/calculated_plan.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [this.EnergyHoverTip];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1), new CardsVar(2)];
-    
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

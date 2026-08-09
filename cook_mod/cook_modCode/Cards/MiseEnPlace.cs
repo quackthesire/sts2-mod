@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class MiseEnPlace() : CustomCardModel(3, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/mise_en_place.png";
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
         get

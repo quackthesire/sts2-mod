@@ -27,7 +27,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class QuickReflexes() : CustomCardModel(1, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
-    
+    public sealed override string CustomPortraitPath => "res://cook_mod/quick_reflexes.png";
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DexterityPower>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<QuickReflexesPower>(1m)];
@@ -39,6 +39,6 @@ public class QuickReflexes() : CustomCardModel(1, CardType.Power,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["QuickReflexesPower"].UpgradeValueBy(1m);
+        this.AddKeyword(CardKeyword.Innate);
     }
 }

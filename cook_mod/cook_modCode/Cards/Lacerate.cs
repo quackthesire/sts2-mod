@@ -24,10 +24,11 @@ namespace cook_mod.cook_modCode.Cards;
 public class Lacerate() : CustomCardModel(1, CardType.Attack,
     CardRarity.Common, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/lacerate.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move), new PowerVar<BleedPower>(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move), new PowerVar<BleedPower>(3m)];
 
     protected override bool ShouldGlowGoldInternal => (this.Enchantment != null);
     
@@ -36,10 +37,10 @@ public class Lacerate() : CustomCardModel(1, CardType.Attack,
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         if (this.Enchantment != null)
         {
-            await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+            await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
             await PowerCmd.Apply<BleedPower>(choiceContext, cardPlay.Target, this.DynamicVars["BleedPower"].BaseValue, this.Owner.Creature, this);
         }
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
         await PowerCmd.Apply<BleedPower>(choiceContext, cardPlay.Target, this.DynamicVars["BleedPower"].BaseValue, this.Owner.Creature, this);
     }
     

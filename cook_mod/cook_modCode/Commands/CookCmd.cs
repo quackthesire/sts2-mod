@@ -1,5 +1,6 @@
 using BaseLib.Extensions;
 using cook_mod.cook_modCode.Abstract;
+using cook_mod.cook_modCode.Cards;
 using cook_mod.cook_modCode.Character;
 using cook_mod.cook_modCode.Control;
 using cook_mod.cook_modCode.Foods;
@@ -15,7 +16,9 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Afflictions;
+using MegaCrit.Sts2.Core.Models.Afflictions.Mocks;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx;

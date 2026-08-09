@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class SquirtOfLemon() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.AllEnemies)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/squirt_of_lemon.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromPower<Sour>()];
     

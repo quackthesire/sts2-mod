@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Siphon() : CustomCardModel(0, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/siphon.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -46,7 +47,7 @@ public class Siphon() : CustomCardModel(0, CardType.Skill,
         {
             await CardCmd.Exhaust(choiceContext, exhaust);
         }
-        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Glam>().CanEnchant(card) && card.Type != CardType.None), this)).FirstOrDefault<CardModel>();
+        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Glam>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null), this)).FirstOrDefault<CardModel>();
         if (card == null)
         {
             card = (CardModel)null;

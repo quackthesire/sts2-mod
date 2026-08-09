@@ -20,17 +20,15 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class CaffeinationPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/caffeination_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/caffeination_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips
-    {
-        get
-        {
-            return (IEnumerable<IHoverTip>) HoverTipFactory.ForEnergy((PowerModel) this);
-        }
-    }
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.ForEnergy((PowerModel) this)];
     
     public override Decimal ModifyMaxEnergy(Player player, Decimal amount)
     {

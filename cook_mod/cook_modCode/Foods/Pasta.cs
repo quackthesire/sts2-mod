@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -28,19 +29,22 @@ namespace cook_mod.cook_modCode.Foods;
 public class Pasta() : FoodCardModel(0, CardType.Attack,
     CardRarity.Token, TargetType.AnyEnemy, sweet: 1, salty: 2)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/pasta.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Salty>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8m, ValueProp.Move), new ExhaustiveVar(3m)];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Damage.UpgradeValueBy(3m);
+        this.DynamicVars.Damage.UpgradeValueBy(4m);
     }
 }

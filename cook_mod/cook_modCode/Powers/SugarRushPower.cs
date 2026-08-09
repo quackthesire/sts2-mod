@@ -22,6 +22,10 @@ namespace cook_mod.cook_modCode.Powers;
 
 public class SugarRushPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/sugar_rush_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/sugar_rush_power.png";
+
     private int _cardsLeft;
     
     public override PowerType Type => PowerType.Debuff;

@@ -26,7 +26,7 @@ namespace cook_mod.cook_modCode.Foods;
 [Pool(typeof(DeprecatedCardPool))]
 
 public class Yogurt() : FoodCardModel(1, CardType.Power,
-    CardRarity.Token, TargetType.Self, sweet: 3, sour: 2)
+    CardRarity.None, TargetType.Self, sweet: 3, sour: 2)
 {
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>()];

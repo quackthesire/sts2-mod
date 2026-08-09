@@ -25,12 +25,13 @@ namespace cook_mod.cook_modCode.Abstract;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Weak() : RotCardModel(-1, CardType.None,
+public class Weak() : RotCardModel(-1, CardType.Skill,
     CardRarity.Token, TargetType.None)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/weak.png";
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WeakPower>(1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WeakPower>(2m)];
     
     protected override void OnUpgrade()
     {

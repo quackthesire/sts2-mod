@@ -25,8 +25,9 @@ namespace cook_mod.cook_modCode.Cards;
 public class FlavorBomb() : CustomCardModel(0, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/flavor_bomb.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Flavor>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Flavor)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Flavors", 4m)];
     

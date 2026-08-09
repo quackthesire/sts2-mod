@@ -23,6 +23,10 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class ScorchPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/scorch_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/scorch_power.png";
+
     public override PowerType Type => PowerType.Debuff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -30,6 +34,6 @@ public class ScorchPower : CustomPowerModel
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (Owner.Player == null || Owner.Player?.Creature.Side != side) return;
-        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), this.Owner, this.Amount, ValueProp.Unpowered, this.Owner, null);
+        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), this.Owner, this.Amount, ValueProp.Unpowered, this.Owner, null, null);
     }
 }

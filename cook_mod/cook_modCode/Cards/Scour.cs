@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Scour() : CustomCardModel(1, CardType.Attack,
     CardRarity.Common, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/scour.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Recipe>()];
     
@@ -34,7 +35,7 @@ public class Scour() : CustomCardModel(1, CardType.Attack,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
         await CreateCard.GiveCards<Recipe>(this.Owner, this.DynamicVars["Recipes"].IntValue, PileType.Draw, CardPilePosition.Random);
     }
     

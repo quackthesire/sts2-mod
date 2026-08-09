@@ -26,6 +26,8 @@ namespace cook_mod.cook_modCode.Cards;
 public class BladeCache() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/blade_cache.png";
+
     private bool Upgrade()
     {
         bool upgraded = true;

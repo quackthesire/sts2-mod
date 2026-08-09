@@ -26,12 +26,13 @@ namespace cook_mod.cook_modCode.Foods;
 [Pool(typeof(TokenCardPool))]
 
 public class Pepper() : FoodCardModel(2, CardType.Power,
-    CardRarity.Token, TargetType.Self, spicy: 4)
+    CardRarity.Token, TargetType.Self, spicy: 5)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/pepper.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>(), HoverTipFactory.FromPower<DexterityPower>(), HoverTipFactory.FromPower<Spicy>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(3m), new PowerVar<DexterityPower>(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(2m), new PowerVar<DexterityPower>(2m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

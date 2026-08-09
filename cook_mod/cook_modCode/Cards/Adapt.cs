@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Adapt() : CustomCardModel(1, CardType.Attack,
     CardRarity.Uncommon, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/adapt.png";
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new BlockVar(9m, ValueProp.Move)];
@@ -34,7 +35,7 @@ public class Adapt() : CustomCardModel(1, CardType.Attack,
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
         if (!cardPlay.Target.Monster.IntendsToAttack)
-            await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+            await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
         else
             await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
     }

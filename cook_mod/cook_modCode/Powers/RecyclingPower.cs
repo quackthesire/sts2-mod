@@ -20,18 +20,39 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class RecyclingPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/recycling_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/recycling_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<GenericFlavor>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Generic_Flavor)];
+    
+    protected override object InitInternalData() => (object) new RecyclingPower.Data();
+    
+    public override Task BeforeSideTurnStart(
+        PlayerChoiceContext choiceContext,
+        CombatSide side,
+        IReadOnlyList<Creature> participants,
+        ICombatState combatState)
+    {
+        if (!participants.Contains<Creature>(this.Owner))
+            return Task.CompletedTask;
+        this.GetInternalData<RecyclingPower.Data>().foodsCreatedThisTurn = 0;
+        return Task.CompletedTask;
+    }
     
     public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
-        RecyclingPower recycling = this;
-        if (creator == null || creator.Creature != recycling.Owner || !(card is FoodCardModel))
+        if (creator == null || creator.Creature != this.Owner || !(card is FoodCardModel) || this.GetInternalData<RecyclingPower.Data>().foodsCreatedThisTurn >= 1)
             return;
-        recycling.Flash();
+        ++this.GetInternalData<RecyclingPower.Data>().foodsCreatedThisTurn;
         await FlavorCmd.AddRandomGenericFlavor(new BlockingPlayerChoiceContext(), this.Owner.Player, null, this.Amount);
+    }
+    private class Data
+    {
+        public int foodsCreatedThisTurn;
     }
 }

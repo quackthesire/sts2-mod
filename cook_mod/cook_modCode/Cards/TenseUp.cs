@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class TenseUp() : CustomCardModel(1, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/tense_up.png";
     public override bool GainsBlock => true;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<FrailPower>()];

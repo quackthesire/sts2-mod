@@ -27,18 +27,19 @@ namespace cook_mod.cook_modCode.Cards;
 public class Organization() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/organization.png";
     public override bool GainsBlock => true;
     
     protected override bool ShouldGlowGoldInternal => this.WasCardPreparedThisTurn();
 
     public bool WasCardPreparedThisTurn()
     {
-        return PrepareModel.Get(this.Owner) > 0;
+        return PrepareModel.GetPrepared(this.Owner) > 0;
     }
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

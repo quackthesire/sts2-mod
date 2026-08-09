@@ -1,0 +1,8 @@
+{
+  "COOK_MOD-GENERIC_FLAVOR.description": "[gold]Generic Flavors[/gold] are [gold]Sweet[/gold], [gold]Sour[/gold], [gold]Salty[/gold], and [gold]Bitter[/gold].",
+  "COOK_MOD-GENERIC_FLAVOR.title": "Generic Flavor",
+  "COOK_MOD-FLAVOR.description": "[gold]Flavors[/gold] are [gold]Sweet[/gold], [gold]Sour[/gold], [gold]Salty[/gold], [gold]Bitter[/gold], and [gold]Spicy[/gold].",
+  "COOK_MOD-FLAVOR.title": "Flavor",
+  "COOK_MOD-PREPARE.description": "Look at the top X cards of your draw pile. Cards selected during a [gold]Prepare[/gold] action (e.g. to [gold]Discard[/gold], to [gold]Exhaust[/gold]) are considered to be [gold]Prepared[/gold].",
+  "COOK_MOD-PREPARE.title": "Prepare"
+}

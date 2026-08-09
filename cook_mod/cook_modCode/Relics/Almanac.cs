@@ -24,9 +24,15 @@ namespace cook_mod.cook_modCode.Relic;
 
 public class Almanac : CustomRelicModel
 {
+    protected override string BigIconPath => "res://cook_mod/almanac.png";
+    
+    public override string PackedIconPath => "res://cook_mod/almanac.png";
+    
+    protected override string PackedIconOutlinePath => "res://cook_mod/almanac.png";
+    
     public override RelicRarity Rarity => RelicRarity.Rare;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
 }

@@ -26,9 +26,10 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Burger() : FoodCardModel(0, CardType.Skill,
+public class Burger() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, sweet: 2, sour: 2, salty: 2, bitter: 2)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/burger.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Fries>(), HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>(), HoverTipFactory.FromPower<Bitter>()];
     

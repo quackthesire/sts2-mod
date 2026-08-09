@@ -25,8 +25,9 @@ namespace cook_mod.cook_modCode.Cards;
 public class Recycling() : CustomCardModel(1, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/recycling.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<GenericFlavor>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Generic_Flavor)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<RecyclingPower>(1m)];
 
@@ -37,6 +38,6 @@ public class Recycling() : CustomCardModel(1, CardType.Power,
     
     protected override void OnUpgrade()
     {
-        this.EnergyCost.UpgradeBy(-1);
+        this.DynamicVars["RecyclingPower"].UpgradeValueBy(1m);
     }
 }

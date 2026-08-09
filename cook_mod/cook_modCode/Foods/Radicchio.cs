@@ -31,6 +31,8 @@ namespace cook_mod.cook_modCode.Foods;
 public class Radicchio() : FoodCardModel(3, CardType.Skill,
     CardRarity.Token, TargetType.Self, bitter: 4, spicy: 2)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/radicchio.png";
+    
     private bool _hasExtraTurn;
     private bool _paelsEyeWasAlreadyUsed;
     

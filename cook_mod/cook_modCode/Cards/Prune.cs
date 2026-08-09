@@ -26,16 +26,17 @@ namespace cook_mod.cook_modCode.Cards;
 public class Prune() : CustomCardModel(1, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/prune.png";
     public override bool GainsBlock => true;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move), new CardsVar(4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5m, ValueProp.Move), new CardsVar(4)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
-        await PrepareCmd.Discard(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, this.DynamicVars.Cards.IntValue, cardPlay);
+        await PrepareCmd.Discard(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, -1, cardPlay);
     }
     
     protected override void OnUpgrade()

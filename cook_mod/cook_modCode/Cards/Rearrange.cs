@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Rearrange() : CustomCardModel(1, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/rearrange.png";
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];

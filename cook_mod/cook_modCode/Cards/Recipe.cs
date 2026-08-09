@@ -10,6 +10,7 @@ namespace cook_mod.cook_modCode.Cards;
 [Pool(typeof(TokenCardPool))]
 public sealed class Recipe : TokenCardModel
 {
+	public sealed override string CustomPortraitPath => "res://cook_mod/recipe.png";
 	public Recipe() : base(0, CardType.Skill, CardRarity.Token, TargetType.None)
 	{
 		WithCards(2, 1);

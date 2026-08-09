@@ -24,14 +24,13 @@ namespace cook_mod.cook_modCode.Cards;
 public class RainOfKnives() : CustomCardModel(3, CardType.Skill,
     CardRarity.Rare, TargetType.AllEnemies)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/rain_of_knives.png";
     public override bool GainsBlock => true;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(10m, ValueProp.Move), new PowerVar<BleedPower>(13m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(13m, ValueProp.Move), new PowerVar<BleedPower>(13m)];
     
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
-
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
@@ -44,7 +43,7 @@ public class RainOfKnives() : CustomCardModel(3, CardType.Skill,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Block.UpgradeValueBy(3m);
+        this.DynamicVars.Block.UpgradeValueBy(4m);
         this.DynamicVars["BleedPower"].UpgradeValueBy(4m);
     }
 }

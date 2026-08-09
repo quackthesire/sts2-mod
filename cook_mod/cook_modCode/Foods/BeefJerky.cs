@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -25,13 +26,14 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class BeefJerky() : FoodCardModel(0, CardType.Skill,
+public class BeefJerky() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, sweet: 3, salty: 2)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/beef_jerky.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Salty>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DoubleDamagePower>(1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DoubleDamagePower>(1m), new ExhaustiveVar(3m)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     

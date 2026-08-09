@@ -24,11 +24,12 @@ namespace cook_mod.cook_modCode.Potions;
 
 public class HerbalExtract : CustomPotionModel
 {
+    public sealed override string CustomPackedImagePath => "res://cook_mod/herbal_extract.png";
     public override PotionRarity Rarity => PotionRarity.Uncommon;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.Self;
     
-    public override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<GenericFlavor>(), HoverTipFactory.FromPower<Spicy>()];
+    public override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Generic_Flavor), HoverTipFactory.FromPower<Spicy>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Flavors", 2m)];
     

@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class VegetableGarden() : CustomCardModel(1, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/vegetable_garden.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -42,7 +43,7 @@ public class VegetableGarden() : CustomCardModel(1, CardType.Skill,
     {
         foreach (CardModel card in PileType.Hand.GetPile(this.Owner).Cards.ToList<CardModel>())
         {
-            if (ModelDb.Enchantment<Sown>().CanEnchant(card) && card.Type != CardType.None)
+            if (ModelDb.Enchantment<Sown>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null)
             {
                 CardCmd.Enchant<Sown>(card, 1m);
                 await EnchantCmd.OnEnchant(choiceContext, this.Owner, card, (CardModel) this);

@@ -25,12 +25,13 @@ namespace cook_mod.cook_modCode.Abstract;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Vulnerable() : RotCardModel(-1, CardType.None,
+public class Vulnerable() : RotCardModel(-1, CardType.Skill,
     CardRarity.Token, TargetType.None)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/vulnerable.png";
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VulnerablePower>(1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<VulnerablePower>(2m)];
     
     protected override void OnUpgrade()
     {

@@ -30,6 +30,12 @@ namespace cook_mod.cook_modCode.Relic;
 
 public class BottledWind : CustomRelicModel
 {
+    protected override string BigIconPath => "res://cook_mod/bottled_wind.png";
+    
+    public override string PackedIconPath => "res://cook_mod/bottled_wind.png";
+    
+    protected override string PackedIconOutlinePath => "res://cook_mod/bottled_wind.png";
+    
     public override RelicRarity Rarity => RelicRarity.Rare;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips

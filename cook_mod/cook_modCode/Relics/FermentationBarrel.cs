@@ -24,6 +24,12 @@ namespace cook_mod.cook_modCode.Relic;
 
 public class FermentationBarrel : CustomRelicModel
 {
+    protected override string BigIconPath => "res://cook_mod/fermentation_barrel.png";
+    
+    public override string PackedIconPath => "res://cook_mod/fermentation_barrel.png";
+    
+    protected override string PackedIconOutlinePath => "res://cook_mod/fermentation_barrel.png";
+    
     public override RelicRarity Rarity => RelicRarity.Rare;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Retain)];

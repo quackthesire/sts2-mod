@@ -25,18 +25,19 @@ namespace cook_mod.cook_modCode.Cards;
 public class Byproduct() : CustomCardModel(2, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/byproduct.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [this.EnergyHoverTip];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ByproductPower>(1m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<ByproductPower>(choiceContext, this.Owner.Creature, this.DynamicVars.Energy.BaseValue, this.Owner.Creature, this);
+        await PowerCmd.Apply<ByproductPower>(choiceContext, this.Owner.Creature, this.DynamicVars["ByproductPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()
     {
-        this.AddKeyword(CardKeyword.Innate);
+        this.EnergyCost.UpgradeBy(-1);
     }
 }

@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class SugarRush() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/sugar_rush.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [this.EnergyHoverTip];
     

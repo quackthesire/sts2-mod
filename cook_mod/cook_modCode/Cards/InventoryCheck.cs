@@ -26,10 +26,13 @@ namespace cook_mod.cook_modCode.Cards;
 public class InventoryCheck() : CustomCardModel(1, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/inventory_check.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(4)];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -38,6 +41,6 @@ public class InventoryCheck() : CustomCardModel(1, CardType.Skill,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Cards.UpgradeValueBy(2m);
+        this.DynamicVars.Cards.UpgradeValueBy(3m);
     }
 }

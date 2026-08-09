@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class QuickGuard() : CustomCardModel(1, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/quick_guard.png";
     public override bool GainsBlock => true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips
@@ -37,12 +38,12 @@ public class QuickGuard() : CustomCardModel(1, CardType.Skill,
         }
     }
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, ValueProp.Move), new DynamicVar("Nimble", 2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move), new DynamicVar("Nimble", 2m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
-        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Nimble>().CanEnchant(card) && card.Type != CardType.None), this)).FirstOrDefault<CardModel>();
+        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Nimble>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null), this)).FirstOrDefault<CardModel>();
         if (card == null)
         {
             card = (CardModel)null;
@@ -57,6 +58,7 @@ public class QuickGuard() : CustomCardModel(1, CardType.Skill,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["Nimble"].UpgradeValueBy(2m);
+        this.DynamicVars.Block.UpgradeValueBy(2m);
+        this.DynamicVars["Nimble"].UpgradeValueBy(1m);
     }
 }

@@ -25,12 +25,14 @@ namespace cook_mod.cook_modCode.Cards;
 public class Nourishment() : CustomCardModel(1, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/nourishment.png";
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<NourishmentPower>(3m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<NourishmentPower>(2m), new PowerVar<EmpowerPower>(1m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<NourishmentPower>(choiceContext, this.Owner.Creature, this.DynamicVars["NourishmentPower"].BaseValue, this.Owner.Creature, this);
+        await PowerCmd.Apply<EmpowerPower>(choiceContext, this.Owner.Creature, this.DynamicVars["EmpowerPower"].BaseValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()

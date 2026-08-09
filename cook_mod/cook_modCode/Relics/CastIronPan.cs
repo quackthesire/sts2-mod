@@ -24,11 +24,17 @@ namespace cook_mod.cook_modCode.Relic;
 
 public class CastIronPan : CustomRelicModel, IOnFlavor
 {
+    protected override string BigIconPath => "res://cook_mod/cast_iron_pan.png";
+    
+    public override string PackedIconPath => "res://cook_mod/cast_iron_pan.png";
+    
+    protected override string PackedIconOutlinePath => "res://cook_mod/cast_iron_pan.png";
+    
     public override RelicRarity Rarity => RelicRarity.Common;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2m, ValueProp.Unpowered)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Flavor>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Flavor)];
 
     public async Task OnFlavor(PlayerChoiceContext ctx, Player player, Flavors original, Flavors modified)
     {

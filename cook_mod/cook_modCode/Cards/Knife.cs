@@ -10,9 +10,10 @@ namespace cook_mod.cook_modCode.Cards;
 [Pool(typeof(TokenCardPool))]
 public sealed class Knife : TokenCardModel
 {
+	public sealed override string CustomPortraitPath => "res://cook_mod/knife.png";
 	public Knife() : base(1, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy)
 	{
-		WithDamage(6, 2);
+		WithDamage(7, 2);
 		WithPower<BleedPower>(2, 1);
 		WithKeywords(CardKeyword.Retain, CardKeyword.Exhaust);
 	}

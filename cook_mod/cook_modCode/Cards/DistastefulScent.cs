@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class DistastefulScent() : CustomCardModel(1, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/distasteful_scent.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sour>()];
     

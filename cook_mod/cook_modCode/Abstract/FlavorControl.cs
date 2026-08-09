@@ -5,6 +5,7 @@ using cook_mod.cook_modCode.Character;
 using cook_mod.cook_modCode.Commands;
 using cook_mod.cook_modCode.Control;
 using cook_mod.cook_modCode.Foods;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -49,10 +50,14 @@ public class FlavorControl() : CustomSingletonModel (true, false)
                 SpicyCounter._control.Visible = true;
                 SpicyCounter._texRect.Visible = true;
                 CookPile._label.Visible = true;
+                CookPile._label.HorizontalAlignment = HorizontalAlignment.Center;
+                CookPile._label.VerticalAlignment = VerticalAlignment.Center;
+                CookPile._label.Position = new(60, 60);
                 CookPile._button.Visible = true;
-                CookPile._texRect.Visible = true;
                 CookPile._button.Disabled = false;
                 CookPile._player = player;
+                FlavorBar._control.Visible = true;
+                FlavorBar._player = player;
             }
             else
             {
@@ -73,9 +78,10 @@ public class FlavorControl() : CustomSingletonModel (true, false)
                 SpicyCounter._texRect.Visible = false;
                 CookPile._label.Visible = false;
                 CookPile._button.Visible = false;
-                CookPile._texRect.Visible = false;
                 CookPile._button.Disabled = true;
                 CookPile._player = null;
+                FlavorBar._control.Visible = false;
+                FlavorBar._player = null;
             }
         }
 

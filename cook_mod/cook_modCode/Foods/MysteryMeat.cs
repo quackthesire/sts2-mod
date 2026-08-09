@@ -29,6 +29,7 @@ namespace cook_mod.cook_modCode.Foods;
 public class MysteryMeat() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, sweet: 1, sour: 1, salty: 1, bitter: 1, spicy: 1)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/mystery_meat.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>(), HoverTipFactory.FromPower<Bitter>(), HoverTipFactory.FromPower<Spicy>()];
     
@@ -40,13 +41,10 @@ public class MysteryMeat() : FoodCardModel(1, CardType.Skill,
     {
         foreach (CardModel card in CardFactory.GetDistinctForCombat(this.Owner, this.Owner.Character.CardPool.GetUnlockedCards(this.Owner.UnlockState, this.Owner.RunState.CardMultiplayerConstraint), this.DynamicVars.Cards.IntValue, this.Owner.RunState.Rng.CombatCardGeneration))
         {
+            if(this.IsUpgraded)
+                CardCmd.Upgrade(card);
             card.SetToFreeThisTurn();
             CardPileAddResult combat = await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, this.Owner);
         }
-    }
-    
-    protected override void OnUpgrade()
-    {
-        this.DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

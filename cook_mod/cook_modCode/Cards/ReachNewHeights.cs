@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class ReachNewHeights() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/reach_new_heights.png";
     protected override bool ShouldGlowGoldInternal
     {
         get
@@ -35,7 +36,7 @@ public class ReachNewHeights() : CustomCardModel(1, CardType.Skill,
         }
     }
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Flavor>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Flavor)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Flavors", 1)];
     

@@ -24,7 +24,7 @@ public partial class SpicyCounter : Godot.Control
         //would probably suggest loading from scene rather than this manual setup
         var control = new SpicyCounter();
         
-        var tex = ResourceLoader.Load<Texture2D>("res://cook_mod/mod_image.png");
+        var tex = ResourceLoader.Load<Texture2D>("res://cook_mod/spicy.png");
         
         var size = tex.GetSize();
         var texRect = new TextureRect();
@@ -38,9 +38,11 @@ public partial class SpicyCounter : Godot.Control
         
         control.Size = new(50, 50);
         control.Position = new(135, 100);
+        control.MouseFilter = MouseFilterEnum.Ignore;
         control.AddChild(texRect);
         
         var label = new Label { Text = "0" };
+        label.AddThemeColorOverride("font_color", Colors.Black);
         label.SetAnchorsAndOffsetsPreset(LayoutPreset.Center);
         control.AddChild(label);
         _label = label;

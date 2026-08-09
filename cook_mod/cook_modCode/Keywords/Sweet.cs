@@ -4,6 +4,10 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 namespace cook_mod.cook_modCode.Keywords;
 public sealed class Sweet : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/sweet.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/sweet.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;

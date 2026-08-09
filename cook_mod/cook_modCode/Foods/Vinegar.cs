@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -26,9 +27,10 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Vinegar() : FoodCardModel(0, CardType.Skill,
+public class Vinegar() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, sour: 4)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/vinegar.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -41,11 +43,11 @@ public class Vinegar() : FoodCardModel(0, CardType.Skill,
         }
     }
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Sharp", 7m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Sharp", 5m), new ExhaustiveVar(3m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Sharp>().CanEnchant(card) && card.Type != CardType.None), this)).FirstOrDefault<CardModel>();
+        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Sharp>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null), this)).FirstOrDefault<CardModel>();
         if (card == null)
         {
             card = (CardModel)null;
@@ -60,6 +62,6 @@ public class Vinegar() : FoodCardModel(0, CardType.Skill,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["Sharp"].UpgradeValueBy(3m);
+        this.DynamicVars["Sharp"].UpgradeValueBy(2m);
     }
 }

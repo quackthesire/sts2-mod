@@ -26,14 +26,15 @@ namespace cook_mod.cook_modCode.Cards;
 public class PrepWork() : CustomCardModel(1, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/prep_work.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>(), HoverTipFactory.FromCard<Recipe>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare), HoverTipFactory.FromCard<Recipe>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new DynamicVar("Recipes", 2m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PrepareCmd.Discard(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, this.DynamicVars.Cards.IntValue, cardPlay);
+        await PrepareCmd.Discard(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, -1, cardPlay);
         await CreateCard.GiveCards<Recipe>(this.Owner, this.DynamicVars["Recipes"].IntValue, PileType.Draw, CardPilePosition.Random);
     }
     

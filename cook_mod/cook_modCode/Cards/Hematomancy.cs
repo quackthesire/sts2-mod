@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Hematomancy() : CustomCardModel(0, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/hematomancy.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>(), this.EnergyHoverTip];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BleedPower>(3m), new EnergyVar(2)];

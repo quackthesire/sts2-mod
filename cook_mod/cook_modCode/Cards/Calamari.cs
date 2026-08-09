@@ -22,9 +22,10 @@ namespace cook_mod.cook_modCode.Cards;
 
 [Pool(typeof(TheCookCardPool))]
 
-public class Calamari() : CustomCardModel(0, CardType.Skill,
+public class Calamari() : CustomCardModel(1, CardType.Skill,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/calamari.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -42,7 +43,7 @@ public class Calamari() : CustomCardModel(0, CardType.Skill,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        List<CardModel> cards = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 0, this.DynamicVars.Cards.IntValue), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Inky>().CanEnchant(card) && card.Type == CardType.Attack), this)).ToList();
+        List<CardModel> cards = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 0, this.DynamicVars.Cards.IntValue), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Inky>().CanEnchant(card) && card.Type == CardType.Attack && card.Enchantment == null), this)).ToList();
         if (cards == null)
         {
             cards = (List<CardModel>)null;

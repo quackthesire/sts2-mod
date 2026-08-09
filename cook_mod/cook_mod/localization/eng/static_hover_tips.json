@@ -1,6 +1,6 @@
 {
-  "ENERGY_COUNT.description": "Your current Energy ({energyPrefix:energyIcons(1)}) and [gold]Flavors[/gold]. [gold]Flavors[/gold] are ordered from left to right as follows: [gold]Sweet[/gold], [gold]Sour[/gold], [gold]Salty[/gold], [gold]Bitter[/gold], [gold]Spicy[/gold]. Cards require {energyPrefix:energyIcons(1)} to play, indicated in the top left corner. [gold]Foods[/gold] require [gold]Flavors[/gold] to be created, indicated on the card.",
-  "ENERGY_COUNT.title": "Energy and Flavors",
+  "FLAVOR_BAR.description": "Your current [gold]Flavors[/gold]. [gold]Flavors[/gold] are ordered from left to right as follows: [gold]Sweet[/gold], [gold]Sour[/gold], [gold]Salty[/gold], [gold]Bitter[/gold], [gold]Spicy[/gold]. [gold]Foods[/gold] require [gold]Flavors[/gold] to be created, indicated on the card.",
+  "FLAVOR_BAR.title": "Flavors",
   "COOK_PILE.description": "You may create [gold]Foods[/gold] by clicking on the [gold]Menu[/gold] and spending [gold]Flavors[/gold].",
   "COOK_PILE.title": "Menu"
 }

@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -25,13 +26,16 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Caramel() : FoodCardModel(0, CardType.Skill,
+public class Caramel() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, sweet: 3, bitter: 1)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/caramel.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Retain), HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Bitter>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Retain", 1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Retain", 1m), new ExhaustiveVar(3m)];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

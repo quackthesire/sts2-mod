@@ -21,16 +21,20 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class FurnishmentPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/furnishment_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/furnishment_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         if (player != this.Owner.Player)
             return;
-        await PrepareCmd.Discard(choiceContext, player, this.Amount, 0, this.Amount, null);
+        await PrepareCmd.Discard(choiceContext, player, this.Amount, 0, -1, null);
     }
 }

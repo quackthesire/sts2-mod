@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -28,11 +29,12 @@ namespace cook_mod.cook_modCode.Foods;
 public class Olive() : FoodCardModel(2, CardType.Skill,
     CardRarity.Token, TargetType.Self, salty: 3, bitter: 2)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/olive.png";
     public override bool GainsBlock => true;
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Salty>(), HoverTipFactory.FromPower<Bitter>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(25m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(18m, ValueProp.Move), new ExhaustiveVar(3m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -41,6 +43,6 @@ public class Olive() : FoodCardModel(2, CardType.Skill,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Block.UpgradeValueBy(7m);
+        this.DynamicVars.Block.UpgradeValueBy(5m);
     }
 }

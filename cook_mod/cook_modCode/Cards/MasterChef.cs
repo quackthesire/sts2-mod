@@ -24,6 +24,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class MasterChef() : CustomCardModel(1, CardType.Power,
     CardRarity.Ancient, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/master_chef.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MasterChefPower>()];
 

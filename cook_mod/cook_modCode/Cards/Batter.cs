@@ -23,20 +23,21 @@ namespace cook_mod.cook_modCode.Cards;
 
 [Pool(typeof(TheCookCardPool))]
 
-public class Batter() : CustomCardModel(0, CardType.Attack,
+public class Batter() : CustomCardModel(1, CardType.Attack,
     CardRarity.Common, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/batter.png";
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2m, ValueProp.Move), new RepeatVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new RepeatVar(3)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).WithHitCount(this.DynamicVars.Repeat.IntValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).WithHitCount(this.DynamicVars.Repeat.IntValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Repeat.UpgradeValueBy(1m);
+        this.DynamicVars.Damage.UpgradeValueBy(1m);
     }
 }

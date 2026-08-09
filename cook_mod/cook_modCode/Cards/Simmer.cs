@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Simmer() : CustomCardModel(2, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/simmer.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SimmerPower>()];
     

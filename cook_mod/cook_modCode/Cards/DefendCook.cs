@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class DefendCook() : CustomCardModel(1, CardType.Skill,
     CardRarity.Basic, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/defend_cook.png";
     public override bool GainsBlock => true;
 
     protected override HashSet<CardTag> CanonicalTags

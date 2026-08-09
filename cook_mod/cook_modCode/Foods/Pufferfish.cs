@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -28,10 +29,11 @@ namespace cook_mod.cook_modCode.Foods;
 public class Pufferfish() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.AllEnemies, salty: 1, bitter: 3)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/pufferfish.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PoisonPower>(), HoverTipFactory.FromPower<BleedPower>(), HoverTipFactory.FromPower<Salty>(), HoverTipFactory.FromPower<Bitter>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PoisonPower>(5m), new PowerVar<BleedPower>(3m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PoisonPower>(4m), new PowerVar<BleedPower>(3m), new ExhaustiveVar(3m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -47,6 +49,6 @@ public class Pufferfish() : FoodCardModel(1, CardType.Skill,
     protected override void OnUpgrade()
     {
         this.DynamicVars["PoisonPower"].UpgradeValueBy(2m);
-        this.DynamicVars["BleedPower"].UpgradeValueBy(2m);
+        this.DynamicVars["BleedPower"].UpgradeValueBy(1m);
     }
 }

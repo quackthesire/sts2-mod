@@ -13,6 +13,10 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace cook_mod.cook_modCode.Powers;
 public class SecondsPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/seconds_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/seconds_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -25,15 +29,5 @@ public class SecondsPower : CustomPowerModel
     public override async Task AfterModifyingCardPlayCount(CardModel card)
     {
         await PowerCmd.Decrement((PowerModel) this);
-    }
-
-    public override async Task AfterSideTurnEnd(
-        PlayerChoiceContext choiceContext,
-        CombatSide side,
-        IEnumerable<Creature> participants)
-    {
-        if (!participants.Contains<Creature>(this.Owner))
-            return;
-        await PowerCmd.Remove((PowerModel) this);
     }
 }

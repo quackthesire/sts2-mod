@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -26,12 +27,13 @@ namespace cook_mod.cook_modCode.Foods;
 [Pool(typeof(TokenCardPool))]
 
 public class HotSauce() : FoodCardModel(1, CardType.Skill,
-    CardRarity.Token, TargetType.AllEnemies, salty: 1, sour: 1, spicy: 2)
+    CardRarity.Token, TargetType.AllEnemies, salty: 1, sour: 1, spicy: 3)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/hot_sauce.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromPower<VulnerablePower>(), HoverTipFactory.FromPower<Sour>(), HoverTipFactory.FromPower<Salty>(), HoverTipFactory.FromPower<Spicy>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WeakPower>(2m), new PowerVar<VulnerablePower>(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<WeakPower>(2m), new PowerVar<VulnerablePower>(2m), new ExhaustiveVar(3m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

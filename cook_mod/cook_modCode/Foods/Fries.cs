@@ -26,9 +26,10 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Fries() : CustomCardModel(1, CardType.Skill,
+public class Fries() : CustomCardModel(2, CardType.Skill,
     CardRarity.Token, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/fries.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<SoftDrink>()];
     

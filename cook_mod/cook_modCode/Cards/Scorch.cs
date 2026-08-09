@@ -25,10 +25,11 @@ namespace cook_mod.cook_modCode.Cards;
 public class Scorch() : CustomCardModel(1, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/scorch.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Spicy>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Spicy", 6), new PowerVar<ScorchPower>(6m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Spicy", 6), new PowerVar<ScorchPower>(5m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

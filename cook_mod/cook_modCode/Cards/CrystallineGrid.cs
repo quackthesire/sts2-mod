@@ -25,10 +25,11 @@ namespace cook_mod.cook_modCode.Cards;
 public class CrystallineGrid() : CustomCardModel(1, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/crystalline_grid.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Salty>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Sweet", 1), new DynamicVar("Salty", 3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Sweet", 1), new DynamicVar("Salty", 2)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -37,6 +38,6 @@ public class CrystallineGrid() : CustomCardModel(1, CardType.Skill,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["Sweet"].UpgradeValueBy(1m);
+        this.DynamicVars["Salty"].UpgradeValueBy(1m);
     }
 }

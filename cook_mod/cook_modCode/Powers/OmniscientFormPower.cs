@@ -21,16 +21,20 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class OmniscientFormPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/omniscient_form_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/omniscient_form_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
 
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
         if (player != this.Owner.Player)
             return;
-        await PrepareCmd.Discard(choiceContext, player, this.Amount, 0, this.Amount, null);
+        await PrepareCmd.Discard(choiceContext, player, this.Amount, 0, -1, null);
     }
 }

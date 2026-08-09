@@ -26,7 +26,7 @@ namespace cook_mod.cook_modCode.Foods;
 [Pool(typeof(DeprecatedCardPool))]
 
 public class Fish() : FoodCardModel(1, CardType.Power,
-    CardRarity.Token, TargetType.Self, salty: 2, spicy: 1)
+    CardRarity.None, TargetType.Self, salty: 2, spicy: 1)
 {
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Salty>(), HoverTipFactory.FromPower<Spicy>()];

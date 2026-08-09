@@ -19,18 +19,24 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class BreachPower : CustomPowerModel
 {
-    public override PowerType Type => PowerType.Debuff;
+    public sealed override string CustomPackedIconPath => "res://cook_mod/breach_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/breach_power.png";
+
+    public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromPower<VulnerablePower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
     
     public override async Task AfterBlockGained(Creature creature, decimal amount, ValueProp props, CardModel? cardSource)
     {
         if (this.Amount <= 0)
             return;
-        await PowerCmd.Apply<WeakPower>(new BlockingPlayerChoiceContext(), this.Owner, this.Amount, creature, null);
-        await PowerCmd.Apply<VulnerablePower>(new BlockingPlayerChoiceContext(), this.Owner, this.Amount, creature, null);
+        foreach (Creature hittableEnemy in (IEnumerable<Creature>)this.CombatState.HittableEnemies)
+        {
+            await PowerCmd.Apply<WeakPower>(new BlockingPlayerChoiceContext(), hittableEnemy, this.Amount, this.Owner, null);
+        }
     }
 
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)

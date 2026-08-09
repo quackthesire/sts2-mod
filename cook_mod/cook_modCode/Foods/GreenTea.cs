@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -30,15 +31,29 @@ namespace cook_mod.cook_modCode.Foods;
 public class GreenTea() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, bitter: 5)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/green_tea.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Bitter>()];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new ExhaustiveVar(3m)];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        CardModel card = CombatManager.Instance.History.CardPlaysFinished.Last().CardPlay.Card;
-        await CardCmd.AutoPlay(choiceContext, card.CreateDupe(), (Creature) null);
+        var lastCardPlay = CombatManager.Instance.History.CardPlaysFinished
+            .Reverse()
+            .FirstOrDefault(play =>
+            {
+                CardModel card = play.CardPlay.Card;
+                return (card.Type == CardType.Attack || card.Type == CardType.Skill) && ! (card is GreenTea) && play.HappenedThisTurn(this.CombatState);
+            });
+
+        if (lastCardPlay != null)
+        {
+            CardModel card = lastCardPlay.CardPlay.Card;
+            await CardCmd.AutoPlay(choiceContext, card.CreateDupe(this.Owner), null);
+        }
     }
     
     protected override void OnUpgrade()

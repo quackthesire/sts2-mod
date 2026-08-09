@@ -18,9 +18,13 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class SimmerPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/simmer_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/simmer_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
 
     public override async Task BeforeSideTurnEnd(
         PlayerChoiceContext choiceContext,
@@ -33,6 +37,6 @@ public class SimmerPower : CustomPowerModel
         if (cards.Count == 0)
             return;
         Flash();
-        await CreatureCmd.GainBlock(this.Owner, (Decimal) cards.Count, ValueProp.Unpowered, (CardPlay) null);
+        await CreatureCmd.GainBlock(this.Owner, (Decimal) cards.Count * this.Amount, ValueProp.Unpowered, (CardPlay) null);
     }
 }

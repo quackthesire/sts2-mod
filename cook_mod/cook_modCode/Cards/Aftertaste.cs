@@ -28,13 +28,14 @@ namespace cook_mod.cook_modCode.Cards;
 public class Aftertaste() : CustomCardModel(0, CardType.Attack,
     CardRarity.Rare, TargetType.AnyEnemy)
 {
-    
+    public sealed override string CustomPortraitPath => "res://cook_mod/aftertaste.png";
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move), new CardsVar(2)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull((object) cardPlay.Target, "cardPlay.Target");
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
     }
     
     public override async Task AfterCardPlayedLate(

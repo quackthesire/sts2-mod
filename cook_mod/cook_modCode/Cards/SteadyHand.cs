@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class SteadyHand() : CustomCardModel(0, CardType.Skill,
     CardRarity.Common, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/steady_hand.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -44,7 +45,7 @@ public class SteadyHand() : CustomCardModel(0, CardType.Skill,
     {
         if (this.IsUpgraded)
             await CardPileCmd.Draw(choiceContext, 1m, this.Owner);
-        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, this.DynamicVars.Cards.IntValue), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Steady>().CanEnchant(card) && card.Type != CardType.None), this)).FirstOrDefault<CardModel>();
+        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, this.DynamicVars.Cards.IntValue), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Steady>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null), this)).FirstOrDefault<CardModel>();
         if (card == null)
         {
             card = (CardModel)null;

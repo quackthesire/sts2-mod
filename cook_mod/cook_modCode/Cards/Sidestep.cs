@@ -26,9 +26,10 @@ namespace cook_mod.cook_modCode.Cards;
 public class Sidestep() : CustomCardModel(2, CardType.Skill,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/sidestep.png";
     public override bool GainsBlock => true;
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3m, ValueProp.Move), new RepeatVar(4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4m, ValueProp.Move), new RepeatVar(3)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

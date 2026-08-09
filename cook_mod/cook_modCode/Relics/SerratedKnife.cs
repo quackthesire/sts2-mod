@@ -30,7 +30,13 @@ namespace cook_mod.cook_modCode.Relic;
 
 public class SerratedKnife : CustomRelicModel, IOnBleed
 {
-  public override RelicRarity Rarity => RelicRarity.Uncommon;
+  protected override string BigIconPath => "res://cook_mod/serrated_knife.png";
+    
+  public override string PackedIconPath => "res://cook_mod/serrated_knife.png";
+  
+  protected override string PackedIconOutlinePath => "res://cook_mod/serrated_knife.png";
+  
+  public override RelicRarity Rarity => RelicRarity.Shop;
 
   private bool _isActivating;
   private int _bleedApplied;
@@ -81,7 +87,7 @@ public class SerratedKnife : CustomRelicModel, IOnBleed
 
   protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Bleed", 3m), new PowerVar<BleedPower>(2m)];
 
-  public async Task OnBleed(PlayerChoiceContext ctx, Player player, int amount, int changed, CardModel? cardSource)
+  public async Task OnBleed(PlayerChoiceContext ctx, Player player, int amount, int changed, CardModel? cardSource, Creature target)
   {
     if (this.Owner == null || player != this.Owner || cardSource is Fish)
       return;

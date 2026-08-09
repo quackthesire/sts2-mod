@@ -12,6 +12,10 @@ using MegaCrit.Sts2.Core.Models;
 namespace cook_mod.cook_modCode.Powers;
 public class MasterChefPower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/master_chef_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/master_chef_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Single;

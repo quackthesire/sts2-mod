@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -25,13 +26,14 @@ namespace cook_mod.cook_modCode.Foods;
 
 [Pool(typeof(TokenCardPool))]
 
-public class Watermelon() : FoodCardModel(0, CardType.Skill,
+public class Watermelon() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, sweet: 5)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/watermelon.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare), HoverTipFactory.FromPower<Sweet>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(5), new ExhaustiveVar(3m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

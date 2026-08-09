@@ -44,12 +44,9 @@ public static class PrepareCmd
 
         if (amount <= 0) return;
         
-        if (player.GetRelic<Almanac>() != null)
-        {
-            if (minDiscard == 0 && maxDiscard == amount)
-                maxDiscard += 2;
-            amount += 2;
-        }
+        if (player.GetRelic<Almanac>() != null) amount += 2;
+
+        if (maxDiscard == -1) maxDiscard = amount;
 
         var drawPile = PileType.Draw.GetPile(player);
         var cardsToPrepare = drawPile.Cards.Take(amount).ToList();
@@ -76,8 +73,8 @@ public static class PrepareCmd
         foreach (var card in cardsToDiscard)
         {
             await CardCmd.Discard(choiceContext, card);
-            PrepareModel.Add(player, 1);
         }
+        PrepareModel.Add(player, cardsToDiscard.Count);
         await CookHook.OnPrepared(choiceContext, player, amount, cardsToDiscard.Count, cardPlay);
     }
     
@@ -86,12 +83,10 @@ public static class PrepareCmd
 
         if (amount <= 0) return;
         
-        if (player.GetRelic<Almanac>() != null)
-        {
-            if (minPlay == 0 && maxPlay == amount)
-                maxPlay += 2;
-            amount += 2;
-        }
+        
+        if (player.GetRelic<Almanac>() != null) amount += 2;
+
+        if (maxPlay == -1) maxPlay = amount;
 
         var drawPile = PileType.Draw.GetPile(player);
         var cardsToPrepare = drawPile.Cards.Take(amount).ToList();
@@ -117,10 +112,16 @@ public static class PrepareCmd
         )).ToList();
         foreach (var card in cardsToPlay)
         {
-            for (int i = 0; i < times; ++i)
-                await CardCmd.AutoPlay(choiceContext, card, (Creature) null);
-            PrepareModel.Add(player, 1);
+            await CardCmd.AutoPlay(choiceContext, card, (Creature)null);
+            for (int i = 0; i < times - 1; ++i)
+            {
+                var dupe = card.CreateDupe(player);
+                await CardCmd.AutoPlay(choiceContext, dupe, (Creature)null);
+            }
+            if (card.Type != CardType.Power)
+                await CardCmd.Exhaust(choiceContext, card);
         }
+        PrepareModel.Add(player, cardsToPlay.Count);
         await CookHook.OnPrepared(choiceContext, player, amount, cardsToPlay.Count, cardPlay);
     }
     
@@ -129,12 +130,10 @@ public static class PrepareCmd
 
         if (amount <= 0) return;
         
-        if (player.GetRelic<Almanac>() != null)
-        {
-            if (minExhaust == 0 && maxExhaust == amount)
-                maxExhaust += 2;
-            amount += 2;
-        }
+        
+        if (player.GetRelic<Almanac>() != null) amount += 2;
+
+        if (maxExhaust == -1) maxExhaust = amount;
 
         var drawPile = PileType.Draw.GetPile(player);
         var cardsToPrepare = drawPile.Cards.Take(amount).ToList();
@@ -161,8 +160,8 @@ public static class PrepareCmd
         foreach (var card in cardsToExhaust)
         {
             await CardCmd.Exhaust(choiceContext, card);
-            PrepareModel.Add(player, 1);
         }
+        PrepareModel.Add(player, cardsToExhaust.Count);
         await CookHook.OnPrepared(choiceContext, player, amount, cardsToExhaust.Count, cardPlay);
     }
     
@@ -171,12 +170,10 @@ public static class PrepareCmd
 
         if (amount <= 0) return;
         
-        if (player.GetRelic<Almanac>() != null)
-        {
-            if (minCard == 0 && maxCard == amount)
-                maxCard += 2;
-            amount += 2;
-        }
+        
+        if (player.GetRelic<Almanac>() != null) amount += 2;
+
+        if (maxCard == -1) maxCard = amount;
 
         var drawPile = PileType.Draw.GetPile(player);
         var cardsToPrepare = drawPile.Cards.Take(amount).ToList();
@@ -203,8 +200,8 @@ public static class PrepareCmd
         foreach (var card in cardsToPutIntoHand)
         {
             await CardPileCmd.Add(card, PileType.Hand);
-            PrepareModel.Add(player, 1);
         }
+        PrepareModel.Add(player, cardsToPutIntoHand.Count);
         await CookHook.OnPrepared(choiceContext, player, amount, cardsToPutIntoHand.Count, cardPlay);
     }
 }

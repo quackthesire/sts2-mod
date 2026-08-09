@@ -24,6 +24,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Hemorrhage() : CustomCardModel(1, CardType.Skill,
     CardRarity.Rare, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/hemorrhage.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     

@@ -25,9 +25,10 @@ namespace cook_mod.cook_modCode.Cards;
 public class OmniscientForm() : CustomCardModel(3, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    public sealed override string CustomPortraitPath => "res://cook_mod/omniscient_form.png";
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<OmniscientFormPower>(6m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<OmniscientFormPower>(7m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

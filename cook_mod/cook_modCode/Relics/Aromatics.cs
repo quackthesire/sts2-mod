@@ -21,6 +21,12 @@ namespace cook_mod.cook_modCode.Relic;
 [Pool(typeof(TheCookRelicPool))]
 public class Aromatics : CustomRelicModel
 {
+    protected override string BigIconPath => "res://cook_mod/aromatics.png";
+    
+    public override string PackedIconPath => "res://cook_mod/aromatics.png";
+    
+    protected override string PackedIconOutlinePath => "res://cook_mod/aromatics.png";
+    
     public override RelicRarity Rarity => RelicRarity.Starter;
 
     protected override IEnumerable<DynamicVar> CanonicalVars
@@ -36,7 +42,7 @@ public class Aromatics : CustomRelicModel
         get
         {
             List<IHoverTip> items = new List<IHoverTip>();
-            items.Add(HoverTipFactory.FromPower<GenericFlavor>());
+            items.Add(HoverTipFactory.FromKeyword(CustomKeywords.Generic_Flavor));
             //items.AddRange(HoverTipFactory.FromCardWithCardHoverTips<Cook>());
             return (IEnumerable<IHoverTip>) items;
         }

@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Lithe() : CustomCardModel(2, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/lithe.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips
     {
@@ -38,12 +39,12 @@ public class Lithe() : CustomCardModel(2, CardType.Power,
         }
     }
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DexterityPower>(1m), new DynamicVar("Nimble", 4m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DexterityPower>(2m), new DynamicVar("Nimble", 4m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<DexterityPower>(choiceContext, this.Owner.Creature, this.DynamicVars.Dexterity.BaseValue, this.Owner.Creature, (CardModel) this);
-        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Nimble>().CanEnchant(card) && card.Type != CardType.None), this)).FirstOrDefault<CardModel>();
+        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Nimble>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null), this)).FirstOrDefault<CardModel>();
         if (card == null)
         {
             card = (CardModel)null;
@@ -59,5 +60,6 @@ public class Lithe() : CustomCardModel(2, CardType.Power,
     protected override void OnUpgrade()
     {
         this.DynamicVars.Dexterity.UpgradeValueBy(1m);
+        this.DynamicVars["Nimble"].UpgradeValueBy(1m);
     }
 }

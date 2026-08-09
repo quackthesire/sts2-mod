@@ -28,17 +28,18 @@ namespace cook_mod.cook_modCode.Cards;
 public class Banquet() : CustomCardModel(3, CardType.Attack,
     CardRarity.Rare, TargetType.AllEnemies), IOnEnchant
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/banquet.png";
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(24m, ValueProp.Move)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).TargetingAllOpponents(this.CombatState).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+        await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).TargetingAllOpponents(this.CombatState).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
     }
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Damage.UpgradeValueBy(5m);
+        this.DynamicVars.Damage.UpgradeValueBy(6m);
     }
 
     public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants,
@@ -52,43 +53,19 @@ public class Banquet() : CustomCardModel(3, CardType.Attack,
             if (card.Enchantment != null && card != this)
                 this.EnergyCost.AddThisCombat(-1);
         }
-        GD.Print("Turn Start!" +  this.EnergyCost.Canonical);
+        GD.Print("Turn Start! " +  this.EnergyCost.Canonical);
         return Task.CompletedTask;
     }
 
     public override Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
     {
-        if (card.Owner != this.Owner || card.Enchantment == null || card == this || card.Pile == null || !(card.Pile.Type is PileType.Hand) || (oldPileType is PileType.Hand))
+        if (card.Owner != this.Owner || card.Enchantment == null || card == this || card.Pile == null)
             return Task.CompletedTask;
-        this.EnergyCost.AddThisCombat(-1);
-        GD.Print("Pile Change!" + this.EnergyCost.Canonical);
-        return Task.CompletedTask;
-    }
-
-    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-        if (cardPlay.Card.Owner != this.Owner || cardPlay.Card.Enchantment == null || cardPlay.Card == this || cardPlay.Card.Keywords.Contains(CardKeyword.Exhaust))
-            return Task.CompletedTask;
-        this.EnergyCost.AddThisCombat(1);
-        GD.Print("Card Play!" +  this.EnergyCost.Canonical);
-        return Task.CompletedTask;
-    }
-
-    public override Task AfterCardDiscarded(PlayerChoiceContext choiceContext, CardModel card)
-    {
-        if (card.Owner != this.Owner || card.Enchantment == null || card == this)
-            return Task.CompletedTask;
-        this.EnergyCost.AddThisCombat(1);
-        GD.Print("Card Discarded!" + this.EnergyCost.Canonical);
-        return Task.CompletedTask;
-    }
-
-    public override Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal)
-    {
-        if (card.Owner != this.Owner || card.Enchantment == null || card == this)
-            return Task.CompletedTask;
-        this.EnergyCost.AddThisCombat(1);
-        GD.Print("Card Exhausted!" + this.EnergyCost.Canonical);
+        if(oldPileType == PileType.Hand)
+            this.EnergyCost.AddThisCombat(1);
+        if(card.Pile.Type == PileType.Hand)
+            this.EnergyCost.AddThisCombat(-1);
+        GD.Print("Pile Change! " + this.EnergyCost.Canonical);
         return Task.CompletedTask;
     }
 
@@ -97,10 +74,19 @@ public class Banquet() : CustomCardModel(3, CardType.Attack,
         if (card.Owner != this.Owner || card.Enchantment == null || card == this)
             return Task.CompletedTask;
         this.EnergyCost.AddThisCombat(-1);
-        GD.Print("Card Enchanted!" + this.EnergyCost.Canonical);
+        GD.Print("Card Enchanted! " + this.EnergyCost.Canonical);
         return Task.CompletedTask;
     }
-    
+
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (cardPlay.Card.Owner != this.Owner || !(cardPlay.Card is BladeOfInk))
+            return Task.CompletedTask;
+        this.EnergyCost.AddThisCombat(-cardPlay.Card.DynamicVars.Cards.IntValue);
+        GD.Print("Blade of Ink :( " +  this.EnergyCost.Canonical);
+        return Task.CompletedTask;
+    }
+
     public override Task AfterCardEnteredCombat(CardModel card)
     {
         if (card != this || this.IsClone)

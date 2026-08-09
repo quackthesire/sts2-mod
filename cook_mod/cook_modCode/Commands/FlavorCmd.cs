@@ -148,9 +148,10 @@ public static class FlavorCmd
             SpicyCounter._texRect.Visible = true;
             CookPile._label.Visible = true;
             CookPile._button.Visible = true;
-            CookPile._texRect.Visible = true;
             CookPile._button.Disabled = false;
             CookPile._player = player;
+            FlavorBar._control.Visible = true;
+            FlavorBar._player = player;
         }
         await CookHook.OnFlavor(ctx, player, original, modified);
     }

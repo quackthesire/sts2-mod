@@ -23,6 +23,10 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class MiseEnPlacePower : CustomPowerModel
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/mise_en_place_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/mise_en_place_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -41,7 +45,7 @@ public class MiseEnPlacePower : CustomPowerModel
     {
         if (player != this.Owner.Player)
             return;
-        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner.Player, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Adroit>().CanEnchant(card) && card.Type != CardType.None), this)).FirstOrDefault<CardModel>();
+        CardModel card = (await CardSelectCmd.FromHand(choiceContext, this.Owner.Player, new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1), (Func<CardModel, bool>)(card => ModelDb.Enchantment<Adroit>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null), this)).FirstOrDefault<CardModel>();
         if (card == null)
         {
             card = (CardModel)null;

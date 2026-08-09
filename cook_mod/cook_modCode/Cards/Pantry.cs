@@ -26,6 +26,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Pantry() : CustomCardModel(0, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/pantry.png";
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<PantryPower>(3m), new CardsVar(1)];
     

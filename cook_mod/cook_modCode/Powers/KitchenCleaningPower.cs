@@ -21,16 +21,20 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 namespace cook_mod.cook_modCode.Powers;
 public class KitchenCleaningPower : CustomPowerModel, IOnFlavor
 {
+    public sealed override string CustomPackedIconPath => "res://cook_mod/kitchen_cleaning_power.png";
+
+    public sealed override string CustomBigIconPath => "res://cook_mod/kitchen_cleaning_power.png";
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
     public async Task OnFlavor(PlayerChoiceContext ctx, Player player, Flavors original, Flavors modified)
     {
-        if (player != this.Owner.Player || (original.sweet == modified.sweet && original.sour == modified.sour && original.salty == modified.salty && original.bitter == modified.bitter && original.spicy == modified.spicy))
+        if (player != this.Owner.Player || (original.sweet >= modified.sweet && original.sour >= modified.sour && original.salty >= modified.salty && original.bitter >= modified.bitter && original.spicy >= modified.spicy))
             return;
-        await PrepareCmd.Discard(ctx, player, this.Amount, 0, this.Amount, null);
+        await PrepareCmd.Discard(ctx, player, this.Amount, 0, -1, null);
     }
 }

@@ -24,6 +24,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Lash() : CustomCardModel(2, CardType.Skill,
     CardRarity.Uncommon, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/lash.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     

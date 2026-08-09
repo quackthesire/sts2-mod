@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using BaseLib.Abstracts;
+using BaseLib.Cards.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using cook_mod.cook_modCode.Abstract;
@@ -28,10 +29,11 @@ namespace cook_mod.cook_modCode.Foods;
 public class Lemonade() : FoodCardModel(1, CardType.Skill,
     CardRarity.Token, TargetType.Self, sweet: 2, sour: 3)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/lemonade.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(0)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(0), new ExhaustiveVar(3m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

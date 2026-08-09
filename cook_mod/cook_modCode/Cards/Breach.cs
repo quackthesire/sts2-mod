@@ -23,16 +23,17 @@ namespace cook_mod.cook_modCode.Cards;
 [Pool(typeof(TheCookCardPool))]
 
 public class Breach() : CustomCardModel(1, CardType.Skill,
-    CardRarity.Uncommon, TargetType.AnyEnemy)
+    CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/breach.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromPower<VulnerablePower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BreachPower>(1m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<BreachPower>(choiceContext, cardPlay.Target, this.DynamicVars["BreachPower"].IntValue, this.Owner.Creature, this);
+        await PowerCmd.Apply<BreachPower>(choiceContext, this.Owner.Creature, this.DynamicVars["BreachPower"].IntValue, this.Owner.Creature, this);
     }
     
     protected override void OnUpgrade()

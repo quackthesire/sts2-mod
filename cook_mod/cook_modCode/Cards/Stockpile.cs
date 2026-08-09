@@ -25,7 +25,8 @@ namespace cook_mod.cook_modCode.Cards;
 public class Stockpile() : CustomCardModel(1, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    public sealed override string CustomPortraitPath => "res://cook_mod/stockpile.png";
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StockpilePower>(2m)];
 
@@ -36,6 +37,6 @@ public class Stockpile() : CustomCardModel(1, CardType.Power,
     
     protected override void OnUpgrade()
     {
-        this.EnergyCost.UpgradeBy(-1);
+        this.DynamicVars["StockpilePower"].UpgradeValueBy(1m);
     }
 }

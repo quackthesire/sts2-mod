@@ -24,11 +24,17 @@ namespace cook_mod.cook_modCode.Relic;
 
 public class CuttingBoard : CustomRelicModel
 {
+    protected override string BigIconPath => "res://cook_mod/cutting_board.png";
+    
+    public override string PackedIconPath => "res://cook_mod/cutting_board.png";
+    
+    protected override string PackedIconOutlinePath => "res://cook_mod/cutting_board.png";
+    
     public override RelicRarity Rarity => RelicRarity.Uncommon;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(5)];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Prepare>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {

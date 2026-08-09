@@ -24,6 +24,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class TripleStab() : CustomCardModel(2, CardType.Attack,
     CardRarity.Rare, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/triple_stab.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     
@@ -34,7 +35,7 @@ public class TripleStab() : CustomCardModel(2, CardType.Attack,
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
         for (int i = 0; i < this.DynamicVars.Repeat.IntValue; i++)
         {
-            await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard(this)
+            await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3")
                 .Execute(choiceContext);

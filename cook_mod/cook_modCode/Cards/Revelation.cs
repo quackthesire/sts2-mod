@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Revelation() : CustomCardModel(2, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/revelation.png";
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Recipe>()];
     

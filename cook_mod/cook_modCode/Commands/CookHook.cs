@@ -2,6 +2,7 @@ using cook_mod.cook_modCode.Abstract;
 using cook_mod.cook_modCode.Keywords;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -37,9 +38,9 @@ public class CookHook
         return Dispatch<IOnPrepared>(ctx, player, m => m.OnPrepared(ctx, player, amount, discardedAmount, cardPlay));
     }
 
-    public static Task OnBleed(PlayerChoiceContext ctx, Player player, int amount, int changed, CardModel? cardSource)
+    public static Task OnBleed(PlayerChoiceContext ctx, Player player, int amount, int changed, CardModel? cardSource, Creature target)
     {
-        return Dispatch<IOnBleed>(ctx, player, m => m.OnBleed(ctx, player, amount, changed, cardSource));
+        return Dispatch<IOnBleed>(ctx, player, m => m.OnBleed(ctx, player, amount, changed, cardSource, target));
     }
     
     public static Task OnFlavor(PlayerChoiceContext ctx, Player player, Flavors original, Flavors modified)

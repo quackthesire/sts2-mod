@@ -25,6 +25,7 @@ namespace cook_mod.cook_modCode.Cards;
 public class Multitask() : CustomCardModel(0, CardType.Attack,
     CardRarity.Rare, TargetType.AnyEnemy)
 {
+    public sealed override string CustomPortraitPath => "res://cook_mod/multitask.png";
     public override bool GainsBlock => true;
 
     protected override bool HasEnergyCostX => true;
@@ -39,7 +40,7 @@ public class Multitask() : CustomCardModel(0, CardType.Attack,
         int hitCount = this.ResolveEnergyXValue();
         for (int i = 0; i < hitCount; i++)
         {
-            await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
+            await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", null, "blunt_attack.mp3").Execute(choiceContext);
             await CreatureCmd.GainBlock(this.Owner.Creature, this.DynamicVars.Block, cardPlay);
         }
     }

@@ -28,6 +28,7 @@ public class Seconds() : CustomCardModel(1, CardType.Skill,
 {
     public sealed override string CustomPortraitPath => "res://cook_mod/seconds.png";
     
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Food)];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SecondsPower>(1m)];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];

@@ -41,7 +41,7 @@ public class AcquiredTastePower : CustomPowerModel
         foreach (var card in retainedCards)
         {
             if (!(alreadyChecked.Contains(card)))
-                card.EnergyCost.AddThisCombat(-Amount);
+                card.EnergyCost.AddUntilPlayed(-Amount);
         }
         return Task.CompletedTask;
     }
@@ -52,7 +52,7 @@ public class AcquiredTastePower : CustomPowerModel
         if (Owner.GetPower<RetainHandPower>() == null) return;
         foreach (var card in PileType.Hand.GetPile(Owner.Player).Cards)
         {
-            card.EnergyCost.AddThisCombat(-Amount);
+            card.EnergyCost.AddUntilPlayed(-Amount);
             alreadyChecked.Add(card);
         }
         await Task.CompletedTask;

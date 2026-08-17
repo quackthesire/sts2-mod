@@ -45,7 +45,7 @@ public class UnwaveringBlade() : CustomCardModel(1, CardType.Attack,
     {
         ArgumentNullException.ThrowIfNull((object)cardPlay.Target, "cardPlay.Target");
         await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this, cardPlay).Targeting(cardPlay.Target).WithHitFx("vfx/vfx_dramatic_stab", tmpSfx: "blunt_attack.mp3").Execute(choiceContext);
-        foreach (CardModel card in PileType.Hand.GetPile(this.Owner).Cards.Where<CardModel>((Func<CardModel, bool>)(card => ModelDb.Enchantment<Steady>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null)).ToList<CardModel>().StableShuffle<CardModel>(this.Owner.RunState.Rng.Shuffle).Take<CardModel>(2))
+        foreach (CardModel card in PileType.Hand.GetPile(this.Owner).Cards.Where<CardModel>((Func<CardModel, bool>)(card => ModelDb.Enchantment<Steady>().CanEnchant(card) && card.Type != CardType.None && card.Enchantment == null)).ToList<CardModel>().StableShuffle<CardModel>(this.Owner.RunState.Rng.Shuffle).Take<CardModel>(this.DynamicVars.Cards.IntValue))
         {
             if (card == null)
                 continue;

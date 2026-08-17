@@ -29,7 +29,7 @@ public class KitchenCleaningPower : CustomPowerModel, IOnFlavor
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Flavor), HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
     public async Task OnFlavor(PlayerChoiceContext ctx, Player player, Flavors original, Flavors modified)
     {

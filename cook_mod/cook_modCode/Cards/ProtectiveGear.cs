@@ -28,6 +28,8 @@ public class ProtectiveGear() : CustomCardModel(1, CardType.Power,
     public sealed override string CustomPortraitPath => "res://cook_mod/protective_gear.png";
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ProtectiveGearPower>(3m)];
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

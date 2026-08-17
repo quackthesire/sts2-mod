@@ -28,6 +28,8 @@ public class ProtectiveGearPower : CustomPowerModel, IOnEnchant
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
 
     public async Task OnEnchant(PlayerChoiceContext ctx, Player player, CardModel card, CardModel? cardSource)
     {

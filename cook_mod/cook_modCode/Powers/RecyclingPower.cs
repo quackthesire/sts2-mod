@@ -8,6 +8,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 using cook_mod.cook_modCode.Abstract;
 using cook_mod.cook_modCode.Commands;
 using cook_mod.cook_modCode.Keywords;
+using Godot;
+using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -28,31 +30,14 @@ public class RecyclingPower : CustomPowerModel
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Generic_Flavor)];
-    
-    protected override object InitInternalData() => (object) new RecyclingPower.Data();
-    
-    public override Task BeforeSideTurnStart(
-        PlayerChoiceContext choiceContext,
-        CombatSide side,
-        IReadOnlyList<Creature> participants,
-        ICombatState combatState)
-    {
-        if (!participants.Contains<Creature>(this.Owner))
-            return Task.CompletedTask;
-        this.GetInternalData<RecyclingPower.Data>().foodsCreatedThisTurn = 0;
-        return Task.CompletedTask;
-    }
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Food), HoverTipFactory.FromKeyword(CustomKeywords.Generic_Flavor)];
     
     public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
-        if (creator == null || creator.Creature != this.Owner || !(card is FoodCardModel) || this.GetInternalData<RecyclingPower.Data>().foodsCreatedThisTurn >= 1)
+        if (creator == null || creator.Creature != this.Owner || !(card is FoodCardModel))
             return;
-        ++this.GetInternalData<RecyclingPower.Data>().foodsCreatedThisTurn;
+        if (CombatManager.Instance.History.Entries.OfType<CardGeneratedEntry>().Count<CardGeneratedEntry>((Func<CardGeneratedEntry, bool>) (e => e.HappenedThisTurn(this.CombatState) && e.Actor == this.Owner && e.Card is FoodCardModel)) > 1)
+            return;
         await FlavorCmd.AddRandomGenericFlavor(new BlockingPlayerChoiceContext(), this.Owner.Player, null, this.Amount);
-    }
-    private class Data
-    {
-        public int foodsCreatedThisTurn;
     }
 }

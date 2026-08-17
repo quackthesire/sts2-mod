@@ -48,6 +48,6 @@ public class Extract() : CustomCardModel(1, CardType.Skill,
     {
         if (player != this.Owner || cardPlay == null || cardPlay.Card != this)
             return;
-        await FlavorCmd.AddRandomGenericFlavor(ctx, this.Owner, this, 1);
+        await FlavorCmd.AddRandomGenericFlavor(ctx, this.Owner, this, selected);
     }
 }

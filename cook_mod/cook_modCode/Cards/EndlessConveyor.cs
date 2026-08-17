@@ -6,6 +6,7 @@ using cook_mod.cook_modCode.Abstract;
 using cook_mod.cook_modCode.Character;
 using cook_mod.cook_modCode.Commands;
 using cook_mod.cook_modCode.Foods;
+using cook_mod.cook_modCode.Keywords;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -35,6 +36,7 @@ public class EndlessConveyor() : CustomCardModel(1, CardType.Skill,
     
     private CardModel? _mockSelectedCard;
     
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Food)];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

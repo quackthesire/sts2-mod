@@ -27,7 +27,7 @@ public class AcquiredTaste() : CustomCardModel(1, CardType.Power,
 {
     public sealed override string CustomPortraitPath => "res://cook_mod/acquired_taste.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<AcquiredTastePower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Retain)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<AcquiredTastePower>(1m)];
 

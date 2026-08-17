@@ -17,6 +17,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using cook_mod.cook_modCode.Powers;
 using cook_mod.cook_modCode.Cards;
 using cook_mod.cook_modCode.Keywords;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace cook_mod.cook_modCode.Cards;
 
@@ -26,6 +27,8 @@ public class Nourishment() : CustomCardModel(1, CardType.Power,
     CardRarity.Uncommon, TargetType.Self)
 {
     public sealed override string CustomPortraitPath => "res://cook_mod/nourishment.png";
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Food), HoverTipFactory.Static(StaticHoverTip.Block), HoverTipFactory.FromPower<VigorPower>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<NourishmentPower>(2m), new PowerVar<EmpowerPower>(1m)];
 

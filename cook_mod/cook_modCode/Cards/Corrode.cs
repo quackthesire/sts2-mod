@@ -29,7 +29,7 @@ public class Corrode() : CustomCardModel(2, CardType.Attack,
     
     public sealed override string CustomPortraitPath => "res://cook_mod/corrode.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(14m, ValueProp.Move), new CardsVar(5), new DynamicVar("Exhaust", 3m)];
 

@@ -30,6 +30,9 @@ public class BladeCache() : CustomCardModel(1, CardType.Skill,
 
     private bool Upgrade()
     {
+        if (this.CombatState == null)
+            return false;
+            
         bool upgraded = true;
         
         foreach (Creature hittableEnemy in this.CombatState.HittableEnemies)
@@ -45,7 +48,7 @@ public class BladeCache() : CustomCardModel(1, CardType.Skill,
     
     protected override bool ShouldGlowGoldInternal => Upgrade();
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Knife>(Upgrade())];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Knife>(Upgrade()), HoverTipFactory.FromPower<BleedPower>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3), new DynamicVar("Knives", 3m)];
 

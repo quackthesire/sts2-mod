@@ -26,8 +26,6 @@ public class MasterChef() : CustomCardModel(1, CardType.Power,
 {
     public sealed override string CustomPortraitPath => "res://cook_mod/master_chef.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MasterChefPower>()];
-
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

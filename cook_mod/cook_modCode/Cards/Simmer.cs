@@ -27,7 +27,7 @@ public class Simmer() : CustomCardModel(2, CardType.Power,
 {
     public sealed override string CustomPortraitPath => "res://cook_mod/simmer.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<SimmerPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SimmerPower>(1m)];
 

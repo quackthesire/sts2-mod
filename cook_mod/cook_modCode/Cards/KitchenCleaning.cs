@@ -26,7 +26,7 @@ public class KitchenCleaning() : CustomCardModel(1, CardType.Power,
     CardRarity.Rare, TargetType.Self)
 {
     public sealed override string CustomPortraitPath => "res://cook_mod/kitchen_cleaning.png";
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Flavor), HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<KitchenCleaningPower>(1m)];
 

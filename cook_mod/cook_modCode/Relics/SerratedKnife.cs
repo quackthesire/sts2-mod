@@ -5,6 +5,7 @@ using cook_mod.cook_modCode.Abstract;
 using cook_mod.cook_modCode.Cards;
 using cook_mod.cook_modCode.Character;
 using cook_mod.cook_modCode.Commands;
+using cook_mod.cook_modCode.Deprecated;
 using cook_mod.cook_modCode.Foods;
 using cook_mod.cook_modCode.Keywords;
 using cook_mod.cook_modCode.Powers;

@@ -27,7 +27,7 @@ public class Breach() : CustomCardModel(1, CardType.Skill,
 {
     public sealed override string CustomPortraitPath => "res://cook_mod/breach.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block), HoverTipFactory.FromPower<WeakPower>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BreachPower>(1m)];
     

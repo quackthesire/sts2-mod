@@ -17,6 +17,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 using cook_mod.cook_modCode.Powers;
 using cook_mod.cook_modCode.Cards;
 using cook_mod.cook_modCode.Keywords;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Players;
 
 namespace cook_mod.cook_modCode.Cards;
@@ -29,7 +31,7 @@ public class Garnish() : CustomCardModel(2, CardType.Attack,
     public sealed override string CustomPortraitPath => "res://cook_mod/garnish.png";
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Retain)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(10m, ValueProp.Move), new CardsVar(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12m, ValueProp.Move), new CardsVar(1)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -40,7 +42,16 @@ public class Garnish() : CustomCardModel(2, CardType.Attack,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars.Damage.UpgradeValueBy(3m);
+        this.DynamicVars.Damage.UpgradeValueBy(2m);
+        this.DynamicVars.Cards.UpgradeValueBy(1m);
+    }
+    
+    public override Task AfterCardEnteredCombat(CardModel card)
+    {
+        if (card != this || this.IsClone || CombatManager.Instance.History.CardPlaysFinished.Count<CardPlayFinishedEntry>((Func<CardPlayFinishedEntry, bool>) (e => e.CardPlay.Card.Keywords.Contains(CardKeyword.Retain) && e.CardPlay.Player == this.Owner && e.HappenedThisTurn(this.CombatState))) == 0)
+            return Task.CompletedTask;
+        this.EnergyCost.SetThisTurnOrUntilPlayed(0);
+        return Task.CompletedTask;
     }
 
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)

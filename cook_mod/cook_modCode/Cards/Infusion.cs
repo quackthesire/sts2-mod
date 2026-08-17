@@ -29,7 +29,7 @@ public class Infusion() : CustomCardModel(2, CardType.Power,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Generic_Flavor)];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<InfusionPower>(3m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<InfusionPower>(2m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

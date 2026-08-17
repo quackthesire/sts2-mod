@@ -33,6 +33,7 @@ public class Siphon() : CustomCardModel(0, CardType.Skill,
         get
         {
             List<IHoverTip> tips = new List<IHoverTip>();
+            tips.AddRange(HoverTipFactory.FromKeyword(CardKeyword.Exhaust));
             tips.AddRange(HoverTipFactory.FromEnchantment<Glam>());
             return tips;
         }

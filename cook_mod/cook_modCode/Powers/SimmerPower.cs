@@ -25,6 +25,8 @@ public class SimmerPower : CustomPowerModel
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Block)];
 
     public override async Task BeforeSideTurnEnd(
         PlayerChoiceContext choiceContext,

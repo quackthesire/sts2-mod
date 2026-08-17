@@ -21,25 +21,25 @@ using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Powers;
 
 
-namespace cook_mod.cook_modCode.Foods;
+namespace cook_mod.cook_modCode.Deprecated;
 
 [Pool(typeof(DeprecatedCardPool))]
 
-public class Fish() : FoodCardModel(1, CardType.Power,
-    CardRarity.None, TargetType.Self, salty: 2, spicy: 1)
+public class Yogurt() : FoodCardModel(1, CardType.Power,
+    CardRarity.None, TargetType.Self, sweet: 3, sour: 2)
 {
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Salty>(), HoverTipFactory.FromPower<Spicy>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<Sweet>(), HoverTipFactory.FromPower<Sour>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ThornsPower>(5m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<StrengthPower>(3m)];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<ThornsPower>(choiceContext, this.Owner.Creature, this.DynamicVars["ThornsPower"].BaseValue, this.Owner.Creature, (CardModel) this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, this.Owner.Creature, this.DynamicVars["StrengthPower"].BaseValue, this.Owner.Creature, (CardModel) this);
     }
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["ThornsPower"].UpgradeValueBy(2m);
+        this.DynamicVars["StrengthPower"].UpgradeValueBy(1m);
     }
 }

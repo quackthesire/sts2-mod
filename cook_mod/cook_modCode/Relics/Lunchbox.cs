@@ -33,7 +33,7 @@ public class Lunchbox : CustomRelicModel
     
     protected override string PackedIconOutlinePath => "res://cook_mod/lunchbox.png";
     
-    public override RelicRarity Rarity => RelicRarity.Rare;
+    public override RelicRarity Rarity => RelicRarity.Uncommon;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 

@@ -22,7 +22,7 @@ public class TheCook : PlaceholderCharacterModel
 {
     public const string CharacterId = "TheCook";
 
-    public override Color NameColor => StsColors.orange;
+    public override Color NameColor => StsColors.quarterTransparentWhite;
     public override CharacterGender Gender => CharacterGender.Masculine;
     public override int StartingHp => 75;
     
@@ -82,17 +82,26 @@ public class TheCook : PlaceholderCharacterModel
         span[index5] = "vfx/vfx_attack_lightning";
         return list;
     }
-    public override Color EnergyLabelOutlineColor => new Color("784000FF");
+    public override Color EnergyLabelOutlineColor => new Color("801212FF");
 
-    public override Color DialogueColor => new Color("52371D");
+    public override Color DialogueColor => new Color("FFFFFF");
 
-    public override VfxColor SpeechBubbleColor => VfxColor.Orange;
+    public override VfxColor SpeechBubbleColor => VfxColor.White;
 
-    public override Color MapDrawingColor => new Color("935206");
+    public override Color MapDrawingColor => new Color("FFFFFF");
 
-    public override Color RemoteTargetingLineColor => new Color("BFA270FF");
+    public override Color RemoteTargetingLineColor => new Color("FFFFFFFF");
 
-    public override Color RemoteTargetingLineOutline => new Color("784000FF");
-
-    public override string CharacterTransitionSfx => "event:/sfx/ui/wipe_ironclad";
+    public override Color RemoteTargetingLineOutline => new Color("FFFFFFFF");
+    public override string CustomIconTexturePath => "res://cook_mod/character_icon_cook.png";
+    public override string CustomCharacterSelectIconPath => "res://cook_mod/char_select_cook.png";
+    public override string CustomRestSiteAnimPath => "res://cook_modCode/Scenes/cook_rest_site.tscn";
+    public override string CustomMerchantAnimPath => "res://cook_modCode/Scenes/cook_merchant.tscn";
+    public override string CustomCharacterSelectBg => "res://cook_modCode/Scenes/char_select_bg_cook.tscn";
+    public override string CustomCharacterSelectLockedIconPath => "res://cook_mod/cook_locked.png";
+    public override string CustomEnergyCounterPath => "res://cook_modCode/Scenes/cook_energy_counter.tscn";
+    public override string CustomIconOutlineTexturePath => "res://cook_mod/cook_outline.png";
+    public override string CustomIconPath => "res://cook_modCode/Scenes/cook_icon.tscn";
+    public override string CustomMapMarkerPath => "res://cook_mod/map_marker_cook.png";
+    //public override string CustomVisualPath => "res://cook_modCode/Scenes/cook_visuals.tscn";
 }

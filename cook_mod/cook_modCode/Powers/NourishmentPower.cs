@@ -29,6 +29,8 @@ public class NourishmentPower : CustomPowerModel
 
     public override PowerStackType StackType => PowerStackType.Counter;
     
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Food), HoverTipFactory.Static(StaticHoverTip.Block)];
+    
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (cardPlay.Card.Owner.Creature != this.Owner || !(cardPlay.Card is FoodCardModel))

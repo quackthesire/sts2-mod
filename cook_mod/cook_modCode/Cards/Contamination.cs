@@ -28,7 +28,7 @@ public class Contamination() : CustomCardModel(1, CardType.Power,
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BleedPower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ContaminationPower>(6m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ContaminationPower>(4m)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -37,6 +37,6 @@ public class Contamination() : CustomCardModel(1, CardType.Power,
     
     protected override void OnUpgrade()
     {
-        this.DynamicVars["ContaminationPower"].UpgradeValueBy(2m);
+        this.DynamicVars["ContaminationPower"].UpgradeValueBy(5m);
     }
 }

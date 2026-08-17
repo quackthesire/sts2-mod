@@ -11,4 +11,6 @@ public class CustomKeywords
     public static CardKeyword Flavor;
     [CustomEnum]
     public static CardKeyword Generic_Flavor;
+    [CustomEnum]
+    public static CardKeyword Food;
 }

@@ -28,6 +28,6 @@ public class ContaminationPower : CustomPowerModel, IOnBleed
     {
         if (this.Owner.Player == null || player != this.Owner.Player)
             return;
-        await CreatureCmd.Damage(ctx, target, (Decimal) this.Amount, ValueProp.Unpowered, this.Owner, (CardModel) null, null);
+        await CreatureCmd.Damage(ctx, (IEnumerable<Creature>) this.CombatState.HittableEnemies, (Decimal) this.Amount, ValueProp.Unpowered, this.Owner);
     }
 }

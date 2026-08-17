@@ -28,7 +28,7 @@ public class Scrapwork() : CustomCardModel(1, CardType.Skill,
 {
     public sealed override string CustomPortraitPath => "res://cook_mod/scrapwork.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare), HoverTipFactory.FromCard<Knife>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare), HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromCard<Knife>()];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
 

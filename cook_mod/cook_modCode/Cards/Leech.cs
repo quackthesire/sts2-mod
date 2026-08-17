@@ -38,6 +38,6 @@ public class Leech() : CustomCardModel(1, CardType.Power,
     
     protected override void OnUpgrade()
     {
-        this.EnergyCost.UpgradeBy(-1);
+        this.DynamicVars["LeechPower"].UpgradeValueBy(1m);
     }
 }

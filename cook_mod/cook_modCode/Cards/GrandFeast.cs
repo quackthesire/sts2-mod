@@ -28,7 +28,7 @@ public class GrandFeast() : CustomCardModel(4, CardType.Skill,
 {
     public sealed override string CustomPortraitPath => "res://cook_mod/grand_feast.png";
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CustomKeywords.Prepare), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(6), new DynamicVar("Selection", 1m), new RepeatVar(3)];
     
@@ -36,7 +36,7 @@ public class GrandFeast() : CustomCardModel(4, CardType.Skill,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PrepareCmd.Play(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, 0, this.DynamicVars["Selection"].IntValue, this.DynamicVars.Repeat.IntValue, cardPlay);
+        await PrepareCmd.Play(choiceContext, this.Owner, this.DynamicVars.Cards.IntValue, this.DynamicVars["Selection"].IntValue, this.DynamicVars["Selection"].IntValue, this.DynamicVars.Repeat.IntValue, cardPlay);
     }
     
     protected override void OnUpgrade()

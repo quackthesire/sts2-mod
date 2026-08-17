@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/Core/Nodes/Screens/Shops/NMerchantCharacter.cs" id="1_merchant"]
+[ext_resource type="Texture2D" path="res://cook_mod/ironclad_standing.png" id="2_ironclad"]
+[ext_resource type="Texture2D" path="res://cook_mod/chef_hat.png" id="3_hat"]
+
+[node name="IroncladMerchant" type="Node2D"]
+script = ExtResource("1_merchant")
+
+[node name="Visuals" type="Sprite2D" parent="."]
+texture = ExtResource("2_ironclad")
+position = Vector2(-70, -220)
+scale = Vector2(1.2, 1.2)
+
+[node name="ChefHat" type="Sprite2D" parent="."]
+texture = ExtResource("3_hat")
+position = Vector2(-20, -460)
+scale = Vector2(0.2, 0.2)

@@ -32,7 +32,7 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Unlocks;
 
-namespace cook_mod.cook_modCode.Cards;
+namespace cook_mod.cook_modCode.Deprecated;
 
 [Pool(typeof(DeprecatedCardPool))]
 

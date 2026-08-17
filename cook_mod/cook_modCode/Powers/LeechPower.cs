@@ -15,8 +15,6 @@ public class LeechPower : CustomPowerModel, IOnBleed
     public sealed override string CustomPackedIconPath => "res://cook_mod/leech_power.png";
 
     public sealed override string CustomBigIconPath => "res://cook_mod/leech_power.png";
-
-    private const int _energyIncrement = 2;
     
     public override PowerType Type => PowerType.Buff;
 

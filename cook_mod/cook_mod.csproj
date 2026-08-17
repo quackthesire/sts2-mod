@@ -104,6 +104,14 @@
         <None Include="cook_mod/**"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="cook_modCode\Scenes\char_select_bg_cook.tscn" />
+      <Content Include="cook_modCode\Scenes\cook_energy_counter.tscn" />
+      <Content Include="cook_modCode\Scenes\cook_icon.tscn" />
+      <Content Include="cook_modCode\Scenes\cook_rest_site.tscn" />
+      <Content Include="cook_modCode\Scenes\cook_merchant.tscn" />
+    </ItemGroup>
+
     <Target Name="CheckDependencyPaths">
         <Error
                 Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'"
